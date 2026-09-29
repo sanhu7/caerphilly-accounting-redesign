@@ -45,8 +45,7 @@ Make sure you have Node.js installed.
 1. Clone the repository:
 
 ```bash
-git clone REPOSITORY_URL
-```
+git clone [https://github.com/sanhu7/caerphilly-accounting-redesign.git]
 
 2. Go to the project folder:
 
