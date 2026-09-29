@@ -14,8 +14,9 @@ The current WordPress website is used only as a content reference. This project 
 
 ## Design
 
-- Figma design: [Add Figma link here](PASTE_FIGMA_LINK_HERE)
-- GitHub Project board: [Add Kanban link here](PASTE_GITHUB_PROJECT_LINK_HERE)
+- Figma design: [https://www.figma.com/design/10LHWS6pZ1ll2wCfyqGZOj/Caerphilly-Accounting-%E2%80%93-Website-Redesign?node-id=87-77&t=Iw5OkrfyZBUsVR2z-1]
+
+- GitHub Project : [https://github.com/sanhu7/caerphilly-accounting-redesign.git]
 
 ### Design direction
 
@@ -100,7 +101,6 @@ Closes #issue-number
 
 ## Useful links
 
-- Existing website: [Caerphilly Accounting](https://caerphillyaccounting.co.uk/)
-- Project brief: Add link or file location
-- Figma design: Add link
-- GitHub Project board: Add link
+- Existing website: [https://caerphillyaccounting.co.uk/]
+- Figma design: [https://www.figma.com/design/10LHWS6pZ1ll2wCfyqGZOj/Caerphilly-Accounting-%E2%80%93-Website-Redesign?node-id=87-77&t=Iw5OkrfyZBUsVR2z-1]
+- GitHub Project board: [https://github.com/users/sanhu7/projects/4/views/1]
