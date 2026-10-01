@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Caerphilly Accounting Redesign
 
-## Getting Started
+A modern, responsive website redesign for Caerphilly Accounting.
 
-First, run the development server:
+The current WordPress website is used only as a content reference. This project is built from scratch with Next.js and follows the approved project brief and Figma design.
+
+## Project goals
+
+- Create a modern, professional and trustworthy accounting website
+- Make services easy to understand for potential clients
+- Make it easy to contact the business and book a consultation
+- Build a responsive website for desktop, tablet and mobile
+- Improve accessibility, performance and clear navigation
+
+## Design
+
+- Figma design: [https://www.figma.com/design/10LHWS6pZ1ll2wCfyqGZOj/Caerphilly-Accounting-%E2%80%93-Website-Redesign?node-id=87-77&t=Iw5OkrfyZBUsVR2z-1]
+
+- GitHub Project : [https://github.com/sanhu7/caerphilly-accounting-redesign.git]
+
+### Design direction
+
+- Colours: dark teal, white and light mint
+- Style: clean, professional, image-led and easy to read
+- Primary CTA: `Book a consultation`
+- Brand values: Accessible, Reliable and Transparent
+
+## Tech stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- ESLint
+- GitHub Projects and GitHub Issues
+
+## Getting started
+
+### Prerequisites
+
+Make sure you have Node.js installed.
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone [https://github.com/sanhu7/caerphilly-accounting-redesign.git]
+
+2. Go to the project folder:
+
+```bash
+cd caerphilly-accounting-redesign
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+app/            # Routes and pages
+components/     # Reusable UI components
+data/           # Content and service data
+public/images/  # Images and illustrations
+```
 
-## Learn More
+## Git workflow
 
-To learn more about Next.js, take a look at the following resources:
+1. Choose or create a GitHub Issue for the task.
+2. Create a branch directly from the related Issue.
+3. Make changes only in your own branch.
+4. Push the branch to GitHub.
+5. Open a Pull Request to merge changes into `main`.
+6. Link the Pull Request to the Issue by writing:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+Closes #issue-number
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+7. At least one group member reviews the Pull Request before it is merged.
+8. The `main` branch must only contain reviewed and working code.
 
-## Deploy on Vercel
+## Team
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Sana 
+- Linus
+- Sadiq
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Useful links
+
+- Existing website: [https://caerphillyaccounting.co.uk/]
+- Figma design: [https://www.figma.com/design/10LHWS6pZ1ll2wCfyqGZOj/Caerphilly-Accounting-%E2%80%93-Website-Redesign?node-id=87-77&t=Iw5OkrfyZBUsVR2z-1]
+- GitHub Project board: [https://github.com/users/sanhu7/projects/4/views/1]
