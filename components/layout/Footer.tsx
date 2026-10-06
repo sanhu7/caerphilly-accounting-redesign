@@ -28,6 +28,33 @@ export default function Footer() {
                     <li><Link href="/contact">Contact</Link></li>
                 </ul>
             </nav>
+            <div>
+                <h2>Get in touch</h2>
+
+                <ul>
+                    <li>
+                        <a href="tel:+447494336569">
+                            Call 07494 336 569
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:info@caerphillyaccounting.co.uk">
+                            info@caerphillyaccounting.co.uk
+                        </a>
+                    </li>
+                </ul>
+
+                <p>Monday to Friday, 09:00–17:00</p>
+            </div>
+            <div>
+                <h2> Partnering with</h2>
+
+                <ul>
+                    <li>Xero</li>
+                    <li> FreeAgent</li>
+                    <li> QuickBooks</li>
+                </ul>
+            </div>
 
         </footer>
     );
