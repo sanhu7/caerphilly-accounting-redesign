@@ -55,6 +55,28 @@ export default function Footer() {
                     <li> QuickBooks</li>
                 </ul>
             </div>
+            <div>
+                <p>
+                    Caerphilly Accounting is a trading name of JJBS Bookkeeping
+                    Solutions Ltd, registered in England and Wales, company number
+                    09862331. Registered office: 32 Tridwr Road, Caerphilly, Gwent,
+                    CF83 4DN.
+                </p>
+
+                <p>
+                    Supervised for anti-money laundering by HMRC — registration
+                    XFML00000110710.
+                </p>
+
+                <ul>
+                    <li>HMRC-registered agent</li>
+                    <li>
+                        Companies House Authorised Corporate Service Provider —
+                        ACSP number AP021767
+                    </li>
+                    <li>ICO registration ZA243622</li>
+                </ul>
+            </div>
 
         </footer>
     );
