@@ -2,6 +2,9 @@ import Link from "next/link";
 import { services } from "@/data/services";
 import Image from "next/image";
 import footerLogo from "@/public/logo.png";
+import xeroLogo from "@/public/xero.png";
+import freeAgentLogo from "@/public/freeagent.png";
+import quickBooksLogo from "@/public/quickbooks.png";
 
 export default function Footer() {
     return (
@@ -99,13 +102,28 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-10 min-w-0">
-                    <h2 className="font-semibold text-white"> Partnering with</h2>
+                    <h2 className="font-semibold text-white">
+                        Partnering with
+                    </h2>
 
-
-                    <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 font-medium">
-                        <li>Xero</li>
-                        <li> FreeAgent</li>
-                        <li> QuickBooks</li>
+                    <ul className="mt-4 flex flex-wrap gap-5">
+                        {[
+                            { name: "Xero", image: xeroLogo },
+                            { name: "FreeAgent", image: freeAgentLogo },
+                            { name: "QuickBooks", image: quickBooksLogo },
+                        ].map((partner) => (
+                            <li
+                                key={partner.name}
+                                className="flex h-[72px] w-[150px] max-w-full items-center justify-center rounded-[6px] bg-white p-3"
+                            >
+                                <Image
+                                    src={partner.image}
+                                    alt={partner.name}
+                                    className="h-full w-full object-contain"
+                                    sizes="126px"
+                                />
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
