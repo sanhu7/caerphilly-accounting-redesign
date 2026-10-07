@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { services } from "@/data/services";
+import Image from "next/image";
+import footerLogo from "@/public/logo.png";
 
 export default function Footer() {
     return (
@@ -7,9 +9,20 @@ export default function Footer() {
             <div className="mx-auto max-w-7xl px-6 py-12 lg:px-12 min-w-0">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
                     <div className="min-w-0">
-                        <h2 className="text-lg font-semibold text-white">Caerphilly Accounting</h2>
+                        <Link
+                            href="/"
+                            aria-label="Caerphilly Accounting, home"
+                            className="inline-flex max-w-full rounded-[10px] bg-white p-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                        >
+                            <Image
+                                src={footerLogo}
+                                alt="Caerphilly Accounting"
+                                className="h-auto w-[200px] max-w-full"
+                                sizes="200px"
+                            />
+                        </Link>
 
-                        <p className="mt-3">Bookkeeping, tax and compliance for small businesses, sole traders
+                        <p className="mt-6">Bookkeeping, tax and compliance for small businesses, sole traders
                             and landlords.</p>
 
                         <address className="mt-4 not-italic">
