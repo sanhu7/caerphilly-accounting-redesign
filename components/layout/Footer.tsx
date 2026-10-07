@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { services } from "@/data/services";
 
 export default function Footer() {
     return (
         <footer className="bg-[var(--ink)] text-sm leading-6 text-[var(--footer-text)]">
             <div className="mx-auto max-w-7xl px-6 py-12 lg:px-12 min-w-0">
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
                     <div className="min-w-0">
                         <h2 className="text-lg font-semibold text-white">Caerphilly Accounting</h2>
 
@@ -21,6 +22,25 @@ export default function Footer() {
                             CF83 4DN
                         </address>
                     </div>
+
+                    <nav aria-label="Footer services navigation" className="min-w-0">
+                        <h2 className="font-semibold text-white">
+                            Services
+                        </h2>
+
+                        <ul className="mt-3 space-y-2">
+                            {services.map((service) => (
+                                <li key={service.slug}>
+                                    <Link
+                                        href={`/services/${service.slug}`}
+                                        className="hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                                    >
+                                        {service.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
 
                     <nav aria-label="Footer company navigation">
                         <h2 className="font-semibold text-white">Company</h2>
