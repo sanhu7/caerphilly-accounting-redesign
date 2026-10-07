@@ -20,8 +20,8 @@ export default function Footer() {
                             <Image
                                 src={footerLogo}
                                 alt="Caerphilly Accounting"
-                                className="h-auto w-[200px] max-w-full"
-                                sizes="200px"
+                                className="h-auto w-[160px] max-w-full"
+                                sizes="160px"
                             />
                         </Link>
 
@@ -114,13 +114,13 @@ export default function Footer() {
                         ].map((partner) => (
                             <li
                                 key={partner.name}
-                                className="flex h-[72px] w-[150px] max-w-full items-center justify-center rounded-[6px] bg-white p-3"
+                                className="flex h-[56px] w-[120px] max-w-full items-center justify-center rounded-[6px] bg-white p-2"
                             >
                                 <Image
                                     src={partner.image}
                                     alt={partner.name}
                                     className="h-full w-full object-contain"
-                                    sizes="126px"
+                                    sizes="104px"
                                 />
                             </li>
                         ))}
