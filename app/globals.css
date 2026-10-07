@@ -3,6 +3,23 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* New prototype colour palette */
+  --paper: #f5f7f9;
+  --surface: #ffffff;
+
+  --ink: #0f1c2e;
+  --ink-2: #34445a;
+  --muted: #5d6b7e;
+
+  --line: #d8dee6;
+
+  --accent: #0f8998;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f2f4;
+
+  --footer-text: #b0bdcf;
+  --footer-line: #ffffff33;
 }
 
 @theme inline {
@@ -64,6 +81,7 @@ body {
     background-color: var(--color-brand-mint);
   }
 }
+
 .heading-xl {
   font-size: 3rem;
   line-height: 1.1;
