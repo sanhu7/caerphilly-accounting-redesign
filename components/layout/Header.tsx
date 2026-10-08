@@ -26,8 +26,7 @@ export default function Header() {
   const closeMenu = () => setOpen(false);
 
   const linkClass = (href: string) =>
-    `block px-3 py-2 text-sm font-medium hover:bg-brand-light ${focusRing} ${
-      pathname === href ? "bg-brand-light" : ""
+    `block px-3 py-2 text-sm font-medium hover:bg-brand-light ${focusRing} ${pathname === href ? "bg-brand-light" : ""
     }`;
 
   const renderItems = (variant: "desktop" | "mobile") =>
@@ -56,6 +55,29 @@ export default function Header() {
 
   return (
     <header className="border-b-2 border-black bg-white">
+      {/* Top bar */}
+      <div className="bg-[var(--ink)] text-sm text-[var(--footer-text)]">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <p>Accountants &amp; bookkeepers for small businesses, sole traders and landlords</p>
+
+          <div className="flex items-center justify-between gap-4">
+            <a
+              href="mailto:info@caerphillyaccounting.co.uk"
+              className="break-all hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              info@caerphillyaccounting.co.uk
+            </a>
+
+            <a
+              href="mailto:info@caerphillyaccounting.co.uk"
+              className="shrink-0 rounded-[6px] border border-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              Email us
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Logo />
 
