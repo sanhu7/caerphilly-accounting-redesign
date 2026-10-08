@@ -54,7 +54,7 @@ export default function Header() {
     );
 
   return (
-    <header className="border-b-2 border-black bg-white">
+    <header className="border-b border-[var(--line)] bg-white">
       {/* Top bar */}
       <div className="bg-[var(--ink)] text-sm text-[var(--footer-text)]">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2 sm:px-6 md:flex-row md:items-center md:justify-between">
@@ -104,7 +104,7 @@ export default function Header() {
       </div>
 
       {/* Mobile navigation */}
-      <div id="mobile-menu" hidden={!open} className="border-t-2 border-black bg-white lg:hidden">
+      <div id="mobile-menu" hidden={!open} className="border-t border-[var(--line)] bg-white lg:hidden">
         <nav aria-label="Main mobile" className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
           <ul className="flex flex-col gap-1">{renderItems("mobile")}</ul>
           <ButtonLink href={headerCta.href} onClick={closeMenu} className="mt-3 w-full">
