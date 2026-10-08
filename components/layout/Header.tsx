@@ -9,7 +9,7 @@ import Logo from "./Logo";
 import NavDropdown from "./NavDropdown";
 
 const focusRing =
-  "focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
 
 export default function Header() {
   const pathname = usePathname();
@@ -26,7 +26,9 @@ export default function Header() {
   const closeMenu = () => setOpen(false);
 
   const linkClass = (href: string) =>
-    `block px-3 py-2 text-sm font-medium hover:bg-brand-light ${focusRing} ${pathname === href ? "bg-brand-light" : ""
+    `block rounded-[6px] px-3 py-2 text-base font-medium transition-colors hover:bg-[var(--accent-soft)] ${focusRing} ${pathname === href
+      ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+      : "text-[var(--ink)]"
     }`;
 
   const renderItems = (variant: "desktop" | "mobile") =>
