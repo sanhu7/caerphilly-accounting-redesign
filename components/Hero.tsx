@@ -1,51 +1,106 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headerCta } from "@/data/navigation";
+
+const estimateRows = [
+    { label: "Base fee", price: "£60" },
+    { label: "VAT returns", price: "£50" },
+    { label: "Payroll · 4 staff", price: "£32" },
+    { label: "MTD Income Tax", price: "£40" },
+    { label: "Bookkeeping · 4hrs @ £30/hr", price: "£120" },
+];
+
 
 export default function Hero() {
     return (
-        <section className="bg-white">
+        <section className="relative isolate overflow-hidden bg-[var(--hero)] text-[var(--hero-ink)]">
+            <Image
+                src="/hero.jpg"
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="-z-20 object-cover"
+            />
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 bg-gradient-to-r from-[var(--hero)] via-[var(--hero)]/85 to-[var(--hero)]/60"
+            />
             <div className="mx-auto grid max-w-7xl items-center gap-6 px-6 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:px-12 lg:py-16">
                 <div>
-                    <h1 className="max-w-4xl text-2xl font-light uppercase leading-[1.15] tracking-[-0.02em] text-black sm:text-3xl lg:text-4xl">
-                        Accounting that works
-                        <br />
-                        around your business
+                    <p className="text-sm font-semibold text-white sm:text-base">
+                        Accountants in Caerphilly
+                    </p>
+                    <h1 className=" mt-4 max-w-3xl text-4xl font-light leading-[1.1] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
+                        Your accounts sorted,{" "}
+                        <span className="text-[var(--hero-accent)]">
+                            and your fee known upfront.
+                        </span>
                     </h1>
 
-                    <p className="mt-10 max-w-md text-sm font-normal leading-5 text-black">
-                        Practical accounting, tax and business support for small businesses,
-                        start-ups, sole traders and limited companies across Caerphilly and beyond.
+                    <p className="mt-8 max-w-xl text-base leading-8 text-[var(--hero-muted)] sm:text-lg">
+                        Bookkeeping, VAT, payroll, corporation tax and Making Tax Digital for
+                        small businesses, sole traders and landlords, with clear monthly pricing
+                        you can check before we speak.
                     </p>
 
-                    <div className="mt-8 flex flex-wrap gap-4">
+                    <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                         <Link
-                            href="/contact"
-                            className="rounded-xl bg-[#1592A1] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#117A87] focus:outline-none focus:ring-2 focus:ring-[#1592A1] focus:ring-offset-2"
+                            href={headerCta.href}
+                            className="inline-flex items-center justify-center rounded-[6px] bg-white px-7 py-4 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--accent-soft)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                         >
-                            Book a consultation
+                            Estimate my monthly fee
                         </Link>
 
-                        <Link
-                            href="/services"
-                            className="rounded-xl border border-[#1592A1] px-5 py-3 text-sm font-medium text-[#1592A1] transition hover:bg-[#1592A1]/10 focus:outline-none focus:ring-2 focus:ring-[#1592A1] focus:ring-offset-2"
+                        <a
+                            href="tel:+447494336569"
+                            className="inline-flex items-center justify-center rounded-[6px] border border-white/80 px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                         >
-                            Explore our services
-                        </Link>
+                            Call 07494 336 569
+                        </a>
                     </div>
+                    <ul className="mt-8 flex flex-wrap gap-3 text-sm text-[var(--hero-muted)]">
+                        {["HMRC-registered agent", "Companies House ACSP", "AML supervised by HMRC"].map(
+                            (badge) => (
+                                <li
+                                    key={badge}
+                                    className="rounded-full border border-white/25 bg-white/5 px-4 py-1.5"
+                                >
+                                    {badge}
+                                </li>
+                            )
+                        )}
+                    </ul>
+                </div>
+                <div className="mx-auto w-full max-w-md rounded-[10px] bg-[var(--surface)] p-6 text-[var(--ink)] shadow-2xl sm:p-8 lg:rotate-[1.5deg]">
+                    <p className="text-center text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+                        Example estimate · Sole trader
+                    </p>
+
+                    <p className="mt-3 text-center text-4xl font-semibold text-[var(--accent)]">
+                        £287 – £317
+                    </p>
+
+                    <dl className="mt-6 text-sm">
+                        {estimateRows.map((row) => (
+                            <div
+                                key={row.label}
+                                className="flex items-center justify-between gap-4 border-t border-dashed border-[var(--line)] py-2.5"
+                            >
+                                <dt>{row.label}</dt>
+                                <dd className="shrink-0">{row.price}</dd>
+                            </div>
+                        ))}
+                    </dl>
+
+                    <Link
+                        href={headerCta.href}
+                        className="mt-4 block text-center text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                    >
+                        Build yours in under a minute →
+                    </Link>
                 </div>
 
-                <div className="mt-8 w-full lg:mt-0 lg:-translate-x-12 lg:translate-y-10">
-
-                    <Image
-                        src="/images/hero-accounting.png"
-                        alt="Illustration of a business owner reviewing accounting information"
-                        width={800}
-                        height={620}
-                        priority
-                        className="h-auto w-full lg:scale-125"
-
-                    />
-                </div>
             </div>
         </section>
     );
