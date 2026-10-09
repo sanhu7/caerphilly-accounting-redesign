@@ -2,6 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { headerCta } from "@/data/navigation";
 
+const estimateRows = [
+    { label: "Base fee", price: "£60" },
+    { label: "VAT returns", price: "£50" },
+    { label: "Payroll · 4 staff", price: "£32" },
+    { label: "MTD Income Tax", price: "£40" },
+    { label: "Bookkeeping · 4hrs @ £30/hr", price: "£120" },
+];
+
 
 export default function Hero() {
     return (
@@ -64,7 +72,34 @@ export default function Hero() {
                         )}
                     </ul>
                 </div>
+                <div className="mx-auto w-full max-w-md rounded-[10px] bg-[var(--surface)] p-6 text-[var(--ink)] shadow-2xl sm:p-8 lg:rotate-[1.5deg]">
+                    <p className="text-center text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+                        Example estimate · Sole trader
+                    </p>
 
+                    <p className="mt-3 text-center text-4xl font-semibold text-[var(--accent)]">
+                        £287 – £317
+                    </p>
+
+                    <dl className="mt-6 text-sm">
+                        {estimateRows.map((row) => (
+                            <div
+                                key={row.label}
+                                className="flex items-center justify-between gap-4 border-t border-dashed border-[var(--line)] py-2.5"
+                            >
+                                <dt>{row.label}</dt>
+                                <dd className="shrink-0">{row.price}</dd>
+                            </div>
+                        ))}
+                    </dl>
+
+                    <Link
+                        href={headerCta.href}
+                        className="mt-4 block text-center text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                    >
+                        Build yours in under a minute →
+                    </Link>
+                </div>
 
             </div>
         </section>
