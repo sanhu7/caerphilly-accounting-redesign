@@ -20,6 +20,10 @@
 
   --footer-text: #b0bdcf;
   --footer-line: #ffffff33;
+
+  --hero: #0f1c2e;
+  --hero-ink: #eef3f7;
+  --hero-muted: #a9b7c7;
 }
 
 @theme inline {
