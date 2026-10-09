@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headerCta } from "@/data/navigation";
 
 
 export default function Hero() {
@@ -35,20 +36,20 @@ export default function Hero() {
                         you can check before we speak.
                     </p>
 
-                    <div className="mt-8 flex flex-wrap gap-4">
+                    <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                         <Link
-                            href="/contact"
-                            className="rounded-xl bg-[#1592A1] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#117A87] focus:outline-none focus:ring-2 focus:ring-[#1592A1] focus:ring-offset-2"
+                            href={headerCta.href}
+                            className="inline-flex items-center justify-center rounded-[6px] bg-white px-7 py-4 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--accent-soft)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                         >
-                            Book a consultation
+                            Estimate my monthly fee
                         </Link>
 
-                        <Link
-                            href="/services"
-                            className="rounded-xl border border-[#1592A1] px-5 py-3 text-sm font-medium text-[#1592A1] transition hover:bg-[#1592A1]/10 focus:outline-none focus:ring-2 focus:ring-[#1592A1] focus:ring-offset-2"
+                        <a
+                            href="tel:+447494336569"
+                            className="inline-flex items-center justify-center rounded-[6px] border border-white/80 px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                         >
-                            Explore our services
-                        </Link>
+                            Call 07494 336 569
+                        </a>
                     </div>
                 </div>
 
