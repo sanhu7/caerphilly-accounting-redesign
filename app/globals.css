@@ -24,6 +24,7 @@
   --hero: #0f1c2e;
   --hero-ink: #eef3f7;
   --hero-muted: #a9b7c7;
+  --hero-accent: #7fcdd6;
 }
 
 @theme inline {

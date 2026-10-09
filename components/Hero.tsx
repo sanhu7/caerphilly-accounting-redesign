@@ -6,6 +6,9 @@ export default function Hero() {
         <section className="bg-[var(--hero)] text-[var(--hero-ink)]">
             <div className="mx-auto grid max-w-7xl items-center gap-6 px-6 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:px-12 lg:py-16">
                 <div>
+                    <p className="text-sm font-semibold text-white sm:text-base">
+                        Accountants in Caerphilly
+                    </p>
                     <h1 className="max-w-3xl text-4xl font-light leading-[1.1] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
                         Your accounts sorted,{" "}
                         <span className="text-[var(--hero-accent)]">
@@ -13,9 +16,10 @@ export default function Hero() {
                         </span>
                     </h1>
 
-                    <p className="mt-10 max-w-md text-sm font-normal leading-5text-[var(--hero-muted)]">
-                        Practical accounting, tax and business support for small businesses,
-                        start-ups, sole traders and limited companies across Caerphilly and beyond.
+                    <p className="mt-8 max-w-xl text-base leading-8 text-[var(--hero-muted)] sm:text-lg">
+                        Bookkeeping, VAT, payroll, corporation tax and Making Tax Digital for
+                        small businesses, sole traders and landlords, with clear monthly pricing
+                        you can check before we speak.
                     </p>
 
                     <div className="mt-8 flex flex-wrap gap-4">
