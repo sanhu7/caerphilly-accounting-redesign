@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navItems, headerCta } from "@/data/navigation";
+import { navItems, headerCta, headerActions } from "@/data/navigation";
 import ButtonLink from "@/components/ui/ButtonLink";
 import Logo from "./Logo";
 import NavDropdown from "./NavDropdown";
@@ -88,9 +88,17 @@ export default function Header() {
           <ul className="flex items-center gap-1">{renderItems("desktop")}</ul>
         </nav>
 
-        <ButtonLink href={headerCta.href} className="hidden lg:inline-flex">
-          {headerCta.label}
-        </ButtonLink>
+        <div className="hidden items-center gap-2 lg:flex">
+          {headerActions.map((action) => (
+            <Link
+              key={action.label}
+              href={action.href}
+              className={`inline-flex items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--accent-soft)] ${focusRing}`}
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
 
         {/* Mobile menu toggle */}
         <button
