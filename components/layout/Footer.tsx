@@ -64,6 +64,8 @@ export default function Footer() {
                             <li><Link href="/pricing">Pricing &amp; fee estimator</Link></li>
                             <li><Link href="/about">About</Link></li>
                             <li><Link href="/contact">Contact</Link></li>
+                            <li><Link href="/privacy">Privacy policy</Link></li>
+                            <li><Link href="/terms">Terms of website use</Link></li>
                         </ul>
                     </nav>
 
