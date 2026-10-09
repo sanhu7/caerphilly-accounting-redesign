@@ -1,15 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 
+
 export default function Hero() {
     return (
-        <section className="bg-[var(--hero)] text-[var(--hero-ink)]">
+        <section className="relative isolate overflow-hidden bg-[var(--hero)] text-[var(--hero-ink)]">
+            <Image
+                src="/hero.jpg"
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="-z-20 object-cover"
+            />
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 bg-gradient-to-r from-[var(--hero)] via-[var(--hero)]/85 to-[var(--hero)]/60"
+            />
             <div className="mx-auto grid max-w-7xl items-center gap-6 px-6 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:px-12 lg:py-16">
                 <div>
                     <p className="text-sm font-semibold text-white sm:text-base">
                         Accountants in Caerphilly
                     </p>
-                    <h1 className="max-w-3xl text-4xl font-light leading-[1.1] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
+                    <h1 className=" mt-4 max-w-3xl text-4xl font-light leading-[1.1] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
                         Your accounts sorted,{" "}
                         <span className="text-[var(--hero-accent)]">
                             and your fee known upfront.
@@ -39,18 +52,7 @@ export default function Hero() {
                     </div>
                 </div>
 
-                <div className="mt-8 w-full lg:mt-0 lg:-translate-x-12 lg:translate-y-10">
 
-                    <Image
-                        src="/images/hero-accounting.png"
-                        alt="Illustration of a business owner reviewing accounting information"
-                        width={800}
-                        height={620}
-                        priority
-                        className="h-auto w-full lg:scale-125"
-
-                    />
-                </div>
             </div>
         </section>
     );
