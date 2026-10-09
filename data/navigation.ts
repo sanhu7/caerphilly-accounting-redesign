@@ -17,3 +17,8 @@ export const headerCta = {
   label: "Estimate my fee",
   href: "/contact",
 };
+
+export const headerActions = [
+  { label: "Quote", href: "/contact" },
+  { label: "Meeting", href: "/contact" },
+];
