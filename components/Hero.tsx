@@ -51,6 +51,18 @@ export default function Hero() {
                             Call 07494 336 569
                         </a>
                     </div>
+                    <ul className="mt-8 flex flex-wrap gap-3 text-sm text-[var(--hero-muted)]">
+                        {["HMRC-registered agent", "Companies House ACSP", "AML supervised by HMRC"].map(
+                            (badge) => (
+                                <li
+                                    key={badge}
+                                    className="rounded-full border border-white/25 bg-white/5 px-4 py-1.5"
+                                >
+                                    {badge}
+                                </li>
+                            )
+                        )}
+                    </ul>
                 </div>
 
 
