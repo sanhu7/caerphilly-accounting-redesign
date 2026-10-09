@@ -3,16 +3,17 @@ import Link from "next/link";
 
 export default function Hero() {
     return (
-        <section className="bg-white">
+        <section className="bg-[var(--hero)] text-[var(--hero-ink)]">
             <div className="mx-auto grid max-w-7xl items-center gap-6 px-6 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:px-12 lg:py-16">
                 <div>
-                    <h1 className="max-w-4xl text-2xl font-light uppercase leading-[1.15] tracking-[-0.02em] text-black sm:text-3xl lg:text-4xl">
-                        Accounting that works
-                        <br />
-                        around your business
+                    <h1 className="max-w-3xl text-4xl font-light leading-[1.1] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
+                        Your accounts sorted,{" "}
+                        <span className="text-[var(--hero-accent)]">
+                            and your fee known upfront.
+                        </span>
                     </h1>
 
-                    <p className="mt-10 max-w-md text-sm font-normal leading-5 text-black">
+                    <p className="mt-10 max-w-md text-sm font-normal leading-5text-[var(--hero-muted)]">
                         Practical accounting, tax and business support for small businesses,
                         start-ups, sole traders and limited companies across Caerphilly and beyond.
                     </p>
