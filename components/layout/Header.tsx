@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navItems, headerCta, headerActions } from "@/data/navigation";
-import ButtonLink from "@/components/ui/ButtonLink";
+import { navItems, headerActions } from "@/data/navigation";
 import Logo from "./Logo";
 import NavDropdown from "./NavDropdown";
 
@@ -103,7 +102,7 @@ export default function Header() {
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className={`border-2 border-black bg-brand-light px-3 py-2 text-sm font-semibold lg:hidden ${focusRing}`}
+          className={`rounded-[6px] border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--accent-soft)] lg:hidden ${focusRing}`}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
@@ -117,9 +116,18 @@ export default function Header() {
       <div id="mobile-menu" hidden={!open} className="border-t border-[var(--line)] bg-white lg:hidden">
         <nav aria-label="Main mobile" className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
           <ul className="flex flex-col gap-1">{renderItems("mobile")}</ul>
-          <ButtonLink href={headerCta.href} onClick={closeMenu} className="mt-3 w-full">
-            {headerCta.label}
-          </ButtonLink>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {headerActions.map((action) => (
+              <Link
+                key={action.label}
+                href={action.href}
+                onClick={closeMenu}
+                className={`inline-flex items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] hover:bg-[var(--accent-soft)] ${focusRing}`}
+              >
+                {action.label}
+              </Link>
+            ))}
+          </div>
         </nav>
       </div>
     </header>
