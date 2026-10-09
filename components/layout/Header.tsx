@@ -92,7 +92,7 @@ export default function Header() {
             <Link
               key={action.label}
               href={action.href}
-              className={`inline-flex items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--accent-soft)] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--ink)] hover:text-white ${focusRing}`}
             >
               {action.label}
             </Link>
@@ -102,7 +102,7 @@ export default function Header() {
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className={`rounded-[6px] border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--accent-soft)] lg:hidden ${focusRing}`}
+          className={`rounded-[6px] border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white lg:hidden ${focusRing}`}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
