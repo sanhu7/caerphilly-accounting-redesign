@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
+import CtaBand from "@/components/CtaBand";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Link>
         <Header />
         <main id="main">{children}</main>
+        <CtaBand />
         <Footer />
 
       </body>
