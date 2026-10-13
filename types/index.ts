@@ -8,5 +8,6 @@ export type NavItem = {
 export type Service = {
   slug: string;
   title: string;
+  headline:string;
   description: string;
 };
