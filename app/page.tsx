@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero"
 import ValueCard from "@/components/ValueCard"
+import ServicesSection from "@/components/ServicesSection"
 
 const values = ["Accessible", "Reliable", "Transparent"];
 
@@ -7,6 +8,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      <ServicesSection />
       <section className="bg-brand-mint px-6 py-section lg:px-12" aria-labelledby="values-heading">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
