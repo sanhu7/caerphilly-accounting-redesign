@@ -1,21 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
+import logo from "@/public/logo.png";
 
 export default function Logo() {
   return (
     <Link
       href="/"
       aria-label="Caerphilly Accounting, home"
-      className="flex items-center gap-2.5 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-black"
+      className="inline-flex shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
     >
-      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
-        <rect x="1" y="1" width="34" height="34" fill="#E6F2FB" stroke="#000" strokeWidth="2" />
-        <path d="M9 26V16m6 10V10m6 16v-7m6 7V13" stroke="#000" strokeWidth="3" strokeLinecap="square" />
-      </svg>
-      <span className="text-lg font-bold leading-tight">
-        Caerphilly
-        <br />
-        Accounting
-      </span>
+      <Image
+        src={logo}
+        alt="Caerphilly Accounting"
+        className="h-auto w-[120px] lg:w-[180px]"
+        sizes="(min-width: 1024px) 180px, 120px"
+        priority
+      />
     </Link>
   );
 }

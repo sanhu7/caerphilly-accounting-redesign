@@ -5,7 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { NavItem } from "@/types";
 
 const focusRing =
-  "focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
 
 type Props = {
   item: NavItem;
@@ -65,9 +65,8 @@ export default function NavDropdown({ item, pathname, variant, onNavigate }: Pro
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium hover:bg-brand-light ${focusRing} ${
-          isDesktop ? "" : "w-full text-left"
-        } ${isActive ? "bg-brand-light" : ""}`}
+        className={`flex items-center gap-1.5 rounded-[6px] px-3 py-2 text-base font-medium transition-colors hover:bg-[var(--accent-soft)] ${focusRing} ${isDesktop ? "" : "w-full text-left"
+          } ${isActive ? "bg-[var(--accent-soft)] text-[var(--accent)]" : "text-[var(--ink)]"}`}
       >
         {item.label}
         <svg
@@ -86,15 +85,15 @@ export default function NavDropdown({ item, pathname, variant, onNavigate }: Pro
         hidden={!open}
         className={
           isDesktop
-            ? "absolute left-0 top-full z-40 mt-2 w-64 border-2 border-black bg-white p-2"
-            : "mt-1 border-l-2 border-black pl-2"
+            ? "absolute left-0 top-full z-40 mt-2 w-64 rounded-[10px] border border-[var(--line)] bg-white p-2 shadow-lg"
+            : "mt-1 border-l-2 border-[var(--line)] pl-2"
         }
       >
         <li>
           <Link
             href={item.href}
             onClick={handleLinkClick}
-            className={`block px-3 py-2 text-sm font-semibold hover:bg-brand-light ${focusRing}`}
+            className={`block rounded-[6px] px-3 py-2 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--accent-soft)] ${focusRing}`}
           >
             All {item.label.toLowerCase()}
           </Link>
@@ -105,9 +104,10 @@ export default function NavDropdown({ item, pathname, variant, onNavigate }: Pro
               href={child.href}
               onClick={handleLinkClick}
               aria-current={pathname === child.href ? "page" : undefined}
-              className={`block px-3 py-2 text-sm hover:bg-brand-light ${focusRing} ${
-                pathname === child.href ? "bg-brand-light" : ""
-              }`}
+              className={`block rounded-[6px] px-3 py-2 text-sm hover:bg-[var(--accent-soft)] ${focusRing} ${pathname === child.href
+                ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                : "text-[var(--ink-2)]"
+                }`}
             >
               {child.label}
             </Link>
