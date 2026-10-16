@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero"
 import ValueCard from "@/components/ValueCard"
+import RegisteredRegulatedSection from "@/components/RegisteredRegulatedSection"
 
 const values = ["Accessible", "Reliable", "Transparent"];
 
@@ -24,6 +25,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <RegisteredRegulatedSection />
     </main>
   );
 }
