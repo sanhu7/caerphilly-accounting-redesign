@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navItems, headerActions } from "@/data/navigation";
+import { navItems, headerActions, headerCta } from "@/data/navigation";
 import Logo from "./Logo";
 import NavDropdown from "./NavDropdown";
 
@@ -102,13 +102,24 @@ export default function Header() {
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className={`rounded-[6px] border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white lg:hidden ${focusRing}`}
+          className={`inline-flex size-11 items-center justify-center rounded-[6px] border border-[var(--line)] bg-white text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white lg:hidden ${focusRing}`}
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? "Close" : "Menu"}
-          <span className="sr-only"> navigation</span>
+          <svg
+            aria-hidden="true"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+          </svg>
         </button>
       </div>
 
@@ -116,18 +127,13 @@ export default function Header() {
       <div id="mobile-menu" hidden={!open} className="border-t border-[var(--line)] bg-white lg:hidden">
         <nav aria-label="Main mobile" className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
           <ul className="flex flex-col gap-1">{renderItems("mobile")}</ul>
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {headerActions.map((action) => (
-              <Link
-                key={action.label}
-                href={action.href}
-                onClick={closeMenu}
-                className={`inline-flex items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] hover:bg-[var(--accent-soft)] ${focusRing}`}
-              >
-                {action.label}
-              </Link>
-            ))}
-          </div>
+          <Link
+            href={headerCta.href}
+            onClick={closeMenu}
+            className={`mt-4 inline-flex w-full items-center justify-center rounded-[6px] border-2 border-[var(--ink)] px-4 py-3 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] hover:bg-[var(--accent-soft)] ${focusRing}`}
+          >
+            Book a consultation
+          </Link>
         </nav>
       </div>
     </header>

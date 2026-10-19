@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero"
 import ValueCard from "@/components/ValueCard"
 import ServicesSection from "@/components/ServicesSection"
+import RegisteredRegulatedSection from "@/components/RegisteredRegulatedSection"
 
 const values = ["Accessible", "Reliable", "Transparent"];
 
@@ -26,6 +27,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <RegisteredRegulatedSection />
     </main>
   );
 }
