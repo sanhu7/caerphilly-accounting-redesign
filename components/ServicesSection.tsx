@@ -1,65 +1,5 @@
-const services = [
-    {
-        category: "Bookkeeping",
-        title: "Accurate Bookkeeping for Commercial Growth",
-        description:
-            "Up-to-date records, reconciliations and organised receipts, so your numbers are always ready.",
-    },
-    {
-        category: "VAT Returns",
-        title: "Maximising Efficiency on VAT Returns",
-        description:
-            "Registration, checked and submitted returns, and practical help with VAT queries.",
-    },
-    {
-        category: "Payroll",
-        title: "Reliable, RTI-Compliant Payroll",
-        description:
-            "PAYE setup, regular pay runs and RTI reporting, handled every month.",
-    },
-    {
-        category: "Corporation Tax",
-        title: "Strategic Corporation Tax Planning",
-        description:
-            "CT600 returns with fully tagged iXBRL computations, capital allowances and R&D review.",
-    },
-    {
-        category: "Digital Solutions",
-        title: "Real-Time Commercial Insights",
-        description:
-            "Cloud accounting setup and support, so you can see your numbers all year round.",
-    },
-    {
-        category: "Making Tax Digital",
-        title: "Future-Proofing Your HMRC Compliance",
-        description:
-            "MTD readiness, software setup and quarterly submissions managed for you.",
-    },
-    {
-        category: "Capital Gains Tax",
-        title: "Protecting Your Asset Disposals",
-        description:
-            "CGT calculated before you sell, with reliefs reviewed and reporting handled.",
-    },
-    {
-        category: "Landlord Self-Assessment",
-        title: "Optimising Your Property Yields",
-        description:
-            "Property income calculations and Self-Assessment returns for landlords.",
-    },
-    {
-        category: "Identity Verification",
-        title: "Companies House Identity Verification",
-        description:
-            "Director and PSC identity checks carried out by an Authorised Corporate Service Provider.",
-    },
-    {
-        category: "Final Accounts",
-        title: "Year-End Accounts, Handled Properly",
-        description:
-            "Year-end accounts prepared from your records and filed on time.",
-    },
-];
+import Link from "next/link";
+import { services } from "@/data/services";
 
 export default function ServicesSection() {
     return (
@@ -85,20 +25,28 @@ export default function ServicesSection() {
                     <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
                         {services.map((service) => (
                             <article
-                                key={service.category}
+                                key={service.slug}
                                 className="bg-white p-6 transition-colors duration-200 hover:bg-[#e2f1f3] lg:p-7"
                             >
                                 <p className="text-xs font-medium uppercase tracking-widest text-gray-600">
-                                    {service.category}
+                                    {service.title}
                                 </p>
 
                                 <h3 className="mt-4 text-xl font-medium leading-snug text-[var(--ink)]">
-                                    {service.title}
+                                    {service.headline}
                                 </h3>
 
                                 <p className="mt-4 text-base leading-relaxed text-gray-700">
                                     {service.description}
                                 </p>
+
+                                <Link
+                                    href={`/services/${service.slug}`}
+                                    aria-label={`Read more about ${service.title}`}
+                                    className="mt-4 inline-block font-semibold text-[#188795] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                                >
+                                    Read more <span aria-hidden="true">→</span>
+                                </Link>
                             </article>
                         ))}
                     </div>
