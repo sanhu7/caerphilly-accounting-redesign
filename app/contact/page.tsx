@@ -1,4 +1,5 @@
 import { services } from "@/data/services";
+import Link from "next/link";
 
 export default function ContactPage() {
   return (
@@ -95,6 +96,38 @@ export default function ContactPage() {
                 className="mt-2 w-full resize-y rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
               />
             </div>
+            <div className="mt-6 flex items-start gap-3">
+              <input
+                id="contact-consent"
+                name="consent"
+                type="checkbox"
+                required
+                className="mt-1 h-5 w-5 shrink-0 accent-[#188795] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              />
+
+              <div className="text-sm leading-relaxed text-gray-600">
+                <label htmlFor="contact-consent">
+                  I agree to Caerphilly Accounting using these details to respond to my
+                  enquiry, as described in the{" "}
+                </label>
+
+                <Link
+                  href="/privacy"
+                  className="text-[#188795] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                >
+                  privacy policy
+                </Link>
+                .
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="mt-6 rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+            >
+              Send message
+            </button>
+
           </section>
         </div>
       </div>
