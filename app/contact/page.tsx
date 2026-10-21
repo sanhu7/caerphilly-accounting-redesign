@@ -1,3 +1,4 @@
+import { services } from "@/data/services";
 
 export default function ContactPage() {
   return (
@@ -52,6 +53,47 @@ export default function ContactPage() {
                   className="mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
                 />
               </div>
+            </div>
+
+            <div className="mt-6">
+              <label
+                htmlFor="contact-service"
+                className="block font-semibold text-[var(--ink)]"
+              >
+                Service
+              </label>
+
+              <select
+                id="contact-service"
+                name="service"
+                defaultValue="general-enquiry"
+                className="mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              >
+                <option value="general-enquiry">General enquiry</option>
+
+                {services.map((service) => (
+                  <option key={service.slug} value={service.slug}>
+                    {service.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mt-6">
+              <label
+                htmlFor="contact-message"
+                className="block font-semibold text-[var(--ink)]"
+              >
+                Message
+              </label>
+
+              <textarea
+                id="contact-message"
+                name="message"
+                rows={5}
+                required
+                className="mt-2 w-full resize-y rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              />
             </div>
           </section>
         </div>
