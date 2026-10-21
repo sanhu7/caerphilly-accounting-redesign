@@ -11,6 +11,50 @@ export default function ContactPage() {
           Send a message or call. If you&apos;d like a price first, use the fee
           estimator.
         </p>
+        <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-14">
+          <section
+            aria-label="Contact form"
+            className="rounded-2xl border border-gray-300 bg-white p-6 sm:p-8"
+          >
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="contact-name"
+                  className="block font-semibold text-[var(--ink)]"
+                >
+                  Name
+                </label>
+
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  className="block font-semibold text-[var(--ink)]"
+                >
+                  Email
+                </label>
+
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </main>
   );
