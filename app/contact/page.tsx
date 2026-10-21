@@ -1,7 +1,20 @@
+"use client";
+
 import { services } from "@/data/services";
 import Link from "next/link";
+import { useState, type FormEvent } from "react";
 
 export default function ContactPage() {
+  const [formStatus, setFormStatus] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setFormStatus(
+      "The form is complete, but online sending is not available yet. Please contact us by phone or email."
+    );
+  }
+
   return (
     <main className="bg-[var(--paper)] py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
@@ -14,7 +27,7 @@ export default function ContactPage() {
           estimator.
         </p>
         <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-14">
-          <section
+          <form
             aria-label="Contact form"
             className="rounded-2xl border border-gray-300 bg-white p-6 sm:p-8"
           >
@@ -121,14 +134,26 @@ export default function ContactPage() {
               </div>
             </div>
 
+            <p className="mt-6 text-sm leading-relaxed text-gray-600">
+              Online sending is not available yet. Please use the phone or email
+              options to contact us.
+            </p>
+
             <button
-              type="button"
-              className="mt-6 rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              type="submit"
+              className="mt-4 rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
             >
               Send message
             </button>
 
-          </section>
+            <p
+              role="status"
+              className="mt-4 text-sm leading-relaxed text-[var(--ink)]"
+            >
+              {formStatus}
+            </p>
+
+          </form>
 
           <section aria-label="Contact information" className="space-y-8">
             <div>
