@@ -129,6 +129,84 @@ export default function ContactPage() {
             </button>
 
           </section>
+
+          <section aria-label="Contact information" className="space-y-8">
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Phone
+              </h2>
+
+              <a
+                href="tel:+447494336569"
+                className="mt-3 inline-block rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              >
+                Call 07494 336 569
+              </a>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Email
+              </h2>
+
+              <a
+                href="mailto:info@caerphillyaccounting.co.uk"
+                className="mt-3 inline-block rounded border border-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+              >
+                Email us
+              </a>
+
+              <p className="mt-3 break-words text-base text-[var(--ink)]">
+                info@caerphillyaccounting.co.uk
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Registered office
+              </h2>
+
+              <address className="mt-3 text-base not-italic leading-relaxed text-[var(--ink)]">
+                32 Tridwr Road, Caerphilly, Gwent, CF83 4DN
+              </address>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Follow us
+              </h2>
+
+              <a
+                href="https://www.linkedin.com/company/jjbs-bookkeeping-solutions-ltd/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block text-base text-[#188795] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              >
+                LinkedIn <span aria-hidden="true">→</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Opening hours
+              </h2>
+
+              <p className="mt-3 text-base leading-relaxed text-[var(--ink)]">
+                Monday to Friday, 9:00–17:00
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
+                Book a call
+              </h2>
+
+              <p className="mt-3 text-base text-gray-600">
+                Online booking link coming soon.
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </main>
