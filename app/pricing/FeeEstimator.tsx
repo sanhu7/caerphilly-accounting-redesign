@@ -9,6 +9,13 @@ const businessTypes = [
 ] as const;
 
 type BusinessType = (typeof businessTypes)[number]["id"];
+const bookkeepingOptions = [
+    { id: "own", label: "I'll do my own" },
+    { id: "quarterly", label: "Quarterly" },
+    { id: "monthly", label: "Monthly" },
+] as const;
+
+type Bookkeeping = (typeof bookkeepingOptions)[number]["id"];
 
 const formatGBP = (amount: number) =>
     new Intl.NumberFormat("en-GB", {
@@ -25,6 +32,10 @@ export default function FeeEstimator() {
     const [isVatRegistered, setIsVatRegistered] = useState(false);
     const [employees, setEmployees] = useState(0);
 
+    const [bookkeeping, setBookkeeping] =
+        useState<Bookkeeping>("own");
+    const [bookkeepingHours, setBookkeepingHours] = useState(1);
+
     const selectedBusiness = businessTypes.find(
         (business) => business.id === businessType,
     )!;
@@ -32,8 +43,17 @@ export default function FeeEstimator() {
     const vatFee = isVatRegistered ? 50 : 0;
     const payrollFee = employees * 8;
 
+    const bookkeepingFee =
+        bookkeeping === "quarterly"
+            ? 75
+            : bookkeeping === "monthly"
+                ? bookkeepingHours * 30
+                : 0;
+
     const monthlyTotal =
-        selectedBusiness.baseFee + vatFee + payrollFee; const minimumEstimate = Math.round(monthlyTotal * 0.95);
+        selectedBusiness.baseFee + vatFee + payrollFee + bookkeepingFee;
+
+    const minimumEstimate = Math.round(monthlyTotal * 0.95);
     const maximumEstimate = Math.round(monthlyTotal * 1.05);
 
     return (
@@ -185,6 +205,95 @@ export default function FeeEstimator() {
                         </button>
                     </div>
                 </div>
+                <fieldset className="mt-8">
+                    <legend className="text-lg font-semibold">
+                        How much bookkeeping help do you want?
+                    </legend>
+
+                    <div className="mt-4 flex flex-wrap gap-3">
+                        {bookkeepingOptions.map((option) => {
+                            const isSelected = bookkeeping === option.id;
+
+                            return (
+                                <label key={option.id} className="cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="bookkeeping"
+                                        value={option.id}
+                                        checked={isSelected}
+                                        onChange={() => setBookkeeping(option.id)}
+                                        className="peer sr-only"
+                                    />
+
+                                    <span
+                                        className={`block rounded-xl border px-4 py-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-[var(--accent)] ${isSelected
+                                            ? "border-[var(--accent)] bg-[var(--accent-soft)] font-semibold text-[var(--accent)]"
+                                            : "border-[var(--line)] bg-[var(--paper)] text-[var(--ink)] hover:border-[var(--accent)]"
+                                            }`}
+                                    >
+                                        {option.label}
+                                    </span>
+                                </label>
+                            );
+                        })}
+                    </div>
+
+                    <p className="mt-3 leading-relaxed text-[var(--muted)]">
+                        Quarterly bookkeeping starts from £75. Monthly bookkeeping is
+                        charged at £30 per hour, based on the hours your business needs.
+                    </p>
+                </fieldset>
+
+                {bookkeeping === "monthly" && (
+                    <div className="mt-8">
+                        <h3
+                            id="bookkeeping-hours-label"
+                            className="text-lg font-semibold"
+                        >
+                            About how many bookkeeping hours a month?
+                        </h3>
+
+                        <p
+                            id="bookkeeping-hours-help"
+                            className="mt-2 leading-relaxed text-[var(--muted)]"
+                        >
+                            A rough guide: sole traders often need 1–2 hours, small limited
+                            companies 3–6.
+                        </p>
+
+                        <div
+                            role="group"
+                            aria-labelledby="bookkeeping-hours-label"
+                            aria-describedby="bookkeeping-hours-help"
+                            className="mt-4 flex items-center gap-4"
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setBookkeepingHours((hours) => Math.max(1, hours - 1))
+                                }
+                                disabled={bookkeepingHours === 1}
+                                aria-label="Decrease bookkeeping hours"
+                                className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-40"
+                            >
+                                −
+                            </button>
+
+                            <output className="min-w-8 text-center text-xl">
+                                {bookkeepingHours}
+                            </output>
+
+                            <button
+                                type="button"
+                                onClick={() => setBookkeepingHours((hours) => hours + 1)}
+                                aria-label="Increase bookkeeping hours"
+                                className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <aside
@@ -228,6 +337,20 @@ export default function FeeEstimator() {
                             <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
                                 <dt>Payroll · {employees} staff</dt>
                                 <dd className="shrink-0">{formatGBP(payrollFee)}</dd>
+                            </div>
+                        )}
+                        {bookkeeping !== "own" && (
+                            <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
+                                <dt>
+                                    {bookkeeping === "quarterly"
+                                        ? "Quarterly bookkeeping (from)"
+                                        : `Monthly bookkeeping · ${bookkeepingHours} ${bookkeepingHours === 1 ? "hr" : "hrs"
+                                        } @ £30/hr`}
+                                </dt>
+
+                                <dd className="shrink-0">
+                                    {formatGBP(bookkeepingFee)}
+                                </dd>
                             </div>
                         )}
                         <div className="flex justify-between gap-4 border-t border-[var(--ink)] py-4 font-semibold">
