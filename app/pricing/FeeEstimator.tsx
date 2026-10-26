@@ -1,0 +1,247 @@
+"use client";
+
+import { useState } from "react";
+
+const businessTypes = [
+    { id: "sole-trader", label: "Sole trader", baseFee: 60 },
+    { id: "partnership", label: "Partnership", baseFee: 90 },
+    { id: "limited-company", label: "Limited company", baseFee: 120 },
+] as const;
+
+type BusinessType = (typeof businessTypes)[number]["id"];
+
+const formatGBP = (amount: number) =>
+    new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+        maximumFractionDigits: 0,
+    }).format(amount);
+
+export default function FeeEstimator() {
+    const [businessType, setBusinessType] =
+        useState<BusinessType>("sole-trader");
+
+    const [turnover, setTurnover] = useState("");
+    const [isVatRegistered, setIsVatRegistered] = useState(false);
+    const [employees, setEmployees] = useState(0);
+
+    const selectedBusiness = businessTypes.find(
+        (business) => business.id === businessType,
+    )!;
+
+    const vatFee = isVatRegistered ? 50 : 0;
+    const payrollFee = employees * 8;
+
+    const monthlyTotal =
+        selectedBusiness.baseFee + vatFee + payrollFee; const minimumEstimate = Math.round(monthlyTotal * 0.95);
+    const maximumEstimate = Math.round(monthlyTotal * 1.05);
+
+    return (
+        <section
+            aria-label="Fee estimator"
+            className="mt-12 grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]"
+        >
+            <div className="rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8">
+                <fieldset>
+                    <legend className="text-lg font-semibold">
+                        What type of business are you?
+                    </legend>
+
+                    <div className="mt-4 flex flex-wrap gap-3">
+                        {businessTypes.map((business) => {
+                            const isSelected = businessType === business.id;
+
+                            return (
+                                <label key={business.id} className="cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="business-type"
+                                        value={business.id}
+                                        checked={isSelected}
+                                        onChange={() => setBusinessType(business.id)}
+                                        className="peer sr-only"
+                                    />
+
+                                    <span
+                                        className={`block rounded-xl border px-4 py-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-[var(--accent)] ${isSelected
+                                            ? "border-[var(--accent)] bg-[var(--accent-soft)] font-semibold text-[var(--accent)]"
+                                            : "border-[var(--line)] bg-[var(--paper)] text-[var(--ink)] hover:border-[var(--accent)]"
+                                            }`}
+                                    >
+                                        {business.label}
+                                    </span>
+                                </label>
+                            );
+                        })}
+                    </div>
+                </fieldset>
+
+                <div className="mt-8">
+                    <label
+                        htmlFor="annual-turnover"
+                        className="block text-lg font-semibold"
+                    >
+                        Annual turnover
+                    </label>
+
+                    <p
+                        id="turnover-help"
+                        className="mt-2 text-[var(--muted)]"
+                    >
+                        Total sales before expenses. A rough figure is fine.
+                    </p>
+
+                    <div className="mt-4 flex max-w-xs items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 focus-within:outline-2 focus-within:outline-[var(--accent)]">
+                        <span aria-hidden="true" className="text-[var(--muted)]">
+                            £
+                        </span>
+
+                        <input
+                            id="annual-turnover"
+                            type="number"
+                            min="0"
+                            step="1"
+                            inputMode="numeric"
+                            value={turnover}
+                            onChange={(event) => setTurnover(event.target.value)}
+                            aria-describedby="turnover-help"
+                            placeholder="0"
+                            className="w-full min-w-0 bg-transparent text-lg outline-none"
+                        />
+                    </div>
+                </div>
+
+                <fieldset className="mt-8">
+                    <legend className="text-lg font-semibold">
+                        Are you VAT registered?
+                    </legend>
+
+                    <div className="mt-4 flex gap-3">
+                        {[
+                            { label: "Yes", value: true },
+                            { label: "No", value: false },
+                        ].map((option) => (
+                            <label key={option.label} className="cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="vat-registered"
+                                    checked={isVatRegistered === option.value}
+                                    onChange={() => setIsVatRegistered(option.value)}
+                                    className="peer sr-only"
+                                />
+
+                                <span
+                                    className={`block rounded-xl border px-4 py-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-[var(--accent)] ${isVatRegistered === option.value
+                                        ? "border-[var(--accent)] bg-[var(--accent-soft)] font-semibold text-[var(--accent)]"
+                                        : "border-[var(--line)] bg-[var(--paper)] text-[var(--ink)] hover:border-[var(--accent)]"
+                                        }`}
+                                >
+                                    {option.label}
+                                </span>
+                            </label>
+                        ))}
+                    </div>
+                </fieldset>
+
+                <div className="mt-8">
+                    <h3 id="employees-label" className="text-lg font-semibold">
+                        How many employees do you pay?
+                    </h3>
+
+                    <p
+                        id="employees-help"
+                        className="mt-2 text-[var(--muted)]"
+                    >
+                        Include directors paid through payroll. Enter 0 if none.
+                    </p>
+
+                    <div
+                        role="group"
+                        aria-labelledby="employees-label"
+                        aria-describedby="employees-help"
+                        className="mt-4 flex items-center gap-4"
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setEmployees((count) => Math.max(0, count - 1))}
+                            disabled={employees === 0}
+                            aria-label="Decrease number of employees"
+                            className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                            −
+                        </button>
+
+                        <output className="min-w-8 text-center text-xl">
+                            {employees}
+                        </output>
+
+                        <button
+                            type="button"
+                            onClick={() => setEmployees((count) => count + 1)}
+                            aria-label="Increase number of employees"
+                            className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <aside
+                aria-labelledby="estimate-heading"
+                className="rounded-3xl bg-[#fbfaf7] p-6 shadow-xl shadow-slate-900/10 sm:p-8"
+            >
+                <h2
+                    id="estimate-heading"
+                    className="text-center text-sm tracking-[0.15em] text-[var(--muted)] uppercase"
+                >
+                    Estimated monthly fee
+                </h2>
+
+                <div aria-live="polite" aria-atomic="true">
+                    <p className="mt-6 text-center text-4xl font-bold text-[var(--accent)] sm:text-5xl">
+                        {formatGBP(minimumEstimate)} – {formatGBP(maximumEstimate)}
+                    </p>
+
+                    <p className="mt-4 text-center text-sm text-[var(--muted)]">
+                        about {formatGBP(monthlyTotal)} a month ·{" "}
+                        {formatGBP(monthlyTotal * 12)} a year
+                    </p>
+
+                    <dl className="mt-8">
+                        <div className="flex items-start justify-between gap-4 border-y border-dashed border-[var(--line)] py-4">
+                            <dt>
+                                Base fee · {selectedBusiness.label.toLowerCase()}
+                            </dt>
+                            <dd className="shrink-0">
+                                {formatGBP(selectedBusiness.baseFee)}
+                            </dd>
+                        </div>
+                        {isVatRegistered && (
+                            <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
+                                <dt>VAT returns</dt>
+                                <dd className="shrink-0">{formatGBP(vatFee)}</dd>
+                            </div>
+                        )}
+
+                        {employees > 0 && (
+                            <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
+                                <dt>Payroll · {employees} staff</dt>
+                                <dd className="shrink-0">{formatGBP(payrollFee)}</dd>
+                            </div>
+                        )}
+                        <div className="flex justify-between gap-4 border-t border-[var(--ink)] py-4 font-semibold">
+                            <dt>Estimate</dt>
+                            <dd>{formatGBP(monthlyTotal)}/mo</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">
+                    Indicative estimate only. Your fixed fee is confirmed in a
+                    letter of engagement after we&apos;ve reviewed your records.
+                </p>
+            </aside>
+        </section>
+    );
+}
