@@ -408,8 +408,14 @@ export default function FeeEstimator() {
                             <dd>{formatGBP(monthlyTotal)}/mo</dd>
                         </div>
                     </dl>
-                </div>
 
+                </div>
+                <a
+                    href="/contact"
+                    className="mt-2 block rounded-sm bg-[var(--ink)] px-4 py-3 text-center text-xs font-bold tracking-[0.12em] text-white uppercase transition-colors hover:bg-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                >
+                    Send me a fixed quote
+                </a>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">
                     Indicative estimate only. Your fixed fee is confirmed in a
                     letter of engagement after we&apos;ve reviewed your records.
