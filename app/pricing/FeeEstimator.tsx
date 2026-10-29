@@ -43,6 +43,11 @@ export default function FeeEstimator() {
     const vatFee = isVatRegistered ? 50 : 0;
     const payrollFee = employees * 8;
 
+    const showMtd =
+        businessType === "sole-trader" && Number(turnover) > 50_000;
+
+    const mtdFee = showMtd && needsMtd ? 40 : 0;
+
     const bookkeepingFee =
         bookkeeping === "quarterly"
             ? 75
@@ -51,7 +56,11 @@ export default function FeeEstimator() {
                 : 0;
 
     const monthlyTotal =
-        selectedBusiness.baseFee + vatFee + payrollFee + bookkeepingFee;
+        selectedBusiness.baseFee +
+        vatFee +
+        payrollFee +
+        bookkeepingFee +
+        mtdFee;
 
     const minimumEstimate = Math.round(monthlyTotal * 0.95);
     const maximumEstimate = Math.round(monthlyTotal * 1.05);
@@ -205,6 +214,41 @@ export default function FeeEstimator() {
                         </button>
                     </div>
                 </div>
+                {showMtd && (
+                    <section className="mt-8">
+                        <h3 className="text-lg font-semibold">
+                            Making Tax Digital for Income Tax
+                        </h3>
+
+                        <p className="mt-2 leading-relaxed text-[var(--muted)]">
+                            Select whether you want this service included in your estimate.
+                            We&apos;ll confirm your requirements when we quote.
+                        </p>
+
+                        <button
+                            type="button"
+                            onClick={() => setNeedsMtd(true)}
+                            className={`mt-4 rounded-xl border px-4 py-3 font-semibold ${needsMtd
+                                ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                                : "border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]"
+                                }`}
+                        >
+                            Yes
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => setNeedsMtd(false)}
+                            className={`ml-3 mt-4 rounded-xl border px-4 py-3 font-semibold ${!needsMtd
+                                ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                                : "border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]"
+                                }`}
+                        >
+                            No
+                        </button>
+                    </section>
+                )}
+
                 <fieldset className="mt-8">
                     <legend className="text-lg font-semibold">
                         How much bookkeeping help do you want?
@@ -337,6 +381,12 @@ export default function FeeEstimator() {
                             <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
                                 <dt>Payroll · {employees} staff</dt>
                                 <dd className="shrink-0">{formatGBP(payrollFee)}</dd>
+                            </div>
+                        )}
+                        {mtdFee > 0 && (
+                            <div className="flex justify-between gap-4 border-b border-dashed border-[var(--line)] py-4">
+                                <dt>MTD Income Tax</dt>
+                                <dd className="shrink-0">{formatGBP(mtdFee)}</dd>
                             </div>
                         )}
                         {bookkeeping !== "own" && (
