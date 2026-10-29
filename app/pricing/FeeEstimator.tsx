@@ -35,7 +35,7 @@ export default function FeeEstimator() {
     const [bookkeeping, setBookkeeping] =
         useState<Bookkeeping>("own");
     const [bookkeepingHours, setBookkeepingHours] = useState(1);
-
+    const [needsMtd, setNeedsMtd] = useState(false);
     const selectedBusiness = businessTypes.find(
         (business) => business.id === businessType,
     )!;
