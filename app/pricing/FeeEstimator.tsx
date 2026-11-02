@@ -411,7 +411,7 @@ export default function FeeEstimator() {
 
                 </div>
                 <a
-                    href={`/contact?quote=true&businessType=${businessType}&monthlyTotal=${monthlyTotal}`} className="mt-2 block rounded-sm bg-[var(--ink)] px-4 py-3 text-center text-xs font-bold tracking-[0.12em] text-white uppercase transition-colors hover:bg-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                    href={`/contact?quote=true&businessType=${businessType}&monthlyTotal=${monthlyTotal}&vat=${isVatRegistered}`} className="mt-2 block rounded-sm bg-[var(--ink)] px-4 py-3 text-center text-xs font-bold tracking-[0.12em] text-white uppercase transition-colors hover:bg-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
                 >
                     Send me a fixed quote
                 </a>

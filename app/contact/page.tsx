@@ -11,6 +11,7 @@ export default function ContactPage() {
   const isQuoteRequest = searchParams.get("quote") === "true";
   const businessType = searchParams.get("businessType");
   const monthlyTotal = searchParams.get("monthlyTotal");
+  const isVatRegistered = searchParams.get("vat") === "true";
 
   const businessTypeLabel =
     businessType === "sole-trader"
@@ -59,6 +60,10 @@ export default function ContactPage() {
                     Estimated monthly fee: <strong>£{monthlyTotal} per month</strong>
                   </>
                 )}
+                <>
+                  <br />
+                  VAT registered: <strong>{isVatRegistered ? "Yes" : "No"}</strong>
+                </>
               </p>
             )}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
