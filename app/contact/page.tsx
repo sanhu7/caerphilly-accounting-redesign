@@ -9,6 +9,16 @@ import { useSearchParams } from "next/navigation";
 export default function ContactPage() {
   const searchParams = useSearchParams();
   const isQuoteRequest = searchParams.get("quote") === "true";
+  const businessType = searchParams.get("businessType");
+
+  const businessTypeLabel =
+    businessType === "sole-trader"
+      ? "Sole trader"
+      : businessType === "partnership"
+        ? "Partnership"
+        : businessType === "limited-company"
+          ? "Limited company"
+          : null;
 
   const [formStatus, setFormStatus] = useState("");
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -39,6 +49,11 @@ export default function ContactPage() {
             aria-label="Contact form"
             className="rounded-2xl border border-gray-300 bg-white p-6 sm:p-8"
           >
+            {isQuoteRequest && businessTypeLabel && (
+              <p className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--ink)]">
+                Business type: <strong>{businessTypeLabel}</strong>
+              </p>
+            )}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <label
