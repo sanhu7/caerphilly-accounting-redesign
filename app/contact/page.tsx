@@ -10,6 +10,7 @@ export default function ContactPage() {
   const searchParams = useSearchParams();
   const isQuoteRequest = searchParams.get("quote") === "true";
   const businessType = searchParams.get("businessType");
+  const monthlyTotal = searchParams.get("monthlyTotal");
 
   const businessTypeLabel =
     businessType === "sole-trader"
@@ -52,6 +53,12 @@ export default function ContactPage() {
             {isQuoteRequest && businessTypeLabel && (
               <p className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--ink)]">
                 Business type: <strong>{businessTypeLabel}</strong>
+                {monthlyTotal && (
+                  <>
+                    <br />
+                    Estimated monthly fee: <strong>£{monthlyTotal} per month</strong>
+                  </>
+                )}
               </p>
             )}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
