@@ -1,5 +1,7 @@
 import Link from "next/link";
 import FeeEstimator from "./FeeEstimator";
+import QuoteRequestForm from "./QuoteRequestForm";
+
 
 const oneOffServices = [
   {
@@ -59,40 +61,42 @@ export default function PricingPage() {
           </p>
         </header>
 
-        <FeeEstimator />
-
-        <section
-          aria-labelledby="one-off-heading"
-          className="mt-12 pb-12"
-        >
-          <h2
-            id="one-off-heading"
-            className="text-2xl font-normal sm:text-3xl"
+        <FeeEstimator>
+          <section
+            aria-labelledby="one-off-heading"
+            className="mt-12 pb-12"
           >
-            One-off work, priced on request
-          </h2>
+            <h2
+              id="one-off-heading"
+              className="text-2xl font-normal sm:text-3xl"
+            >
+              One-off work, priced on request
+            </h2>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {oneOffServices.map((service) => (
-              <article
-                key={service.title}
-                className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6"
-              >
-                <h3 className="text-lg font-semibold">
-                  {service.title}
-                </h3>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {oneOffServices.map((service) => (
+                <article
+                  key={service.title}
+                  className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6"
+                >
+                  <h3 className="text-lg font-semibold">
+                    {service.title}
+                  </h3>
 
-                <p className="mt-3 leading-relaxed text-[var(--muted)]">
-                  {service.description}
-                </p>
+                  <p className="mt-3 leading-relaxed text-[var(--muted)]">
+                    {service.description}
+                  </p>
 
-                <p className="mt-3 text-sm text-[var(--accent)]">
-                  Priced on request
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
+                  <p className="mt-3 text-sm text-[var(--accent)]">
+                    Priced on request
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </FeeEstimator>
+
+
       </div>
     </main>
   );
