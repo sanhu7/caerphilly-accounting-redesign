@@ -32,7 +32,7 @@ export default function WhyChooseUsSection() {
     return (
         <section
             aria-labelledby="why-choose-us-heading"
-            className="bg-[var(--ink)] px-4 py-16 text-white sm:px-6 lg:py-24"
+            className="bg-black px-4 py-16 text-white sm:px-6 lg:py-24"
         >
             <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="min-w-0">
@@ -84,12 +84,12 @@ export default function WhyChooseUsSection() {
                         Key dates we track for you
                     </h3>
 
-                    <div className="overflow-hidden rounded-[6px] border border-white/20">
+                    <div className="overflow-hidden rounded-[6px] border border-gray-200 bg-white text-[var(--ink)]">
                         <table
                             aria-labelledby="key-dates-heading"
                             className="w-full table-fixed border-collapse text-left text-sm"
                         >
-                            <thead className="bg-white/10">
+                            <thead className="bg-gray-100">
                                 <tr>
                                     <th
                                         scope="col"
@@ -110,11 +110,11 @@ export default function WhyChooseUsSection() {
                                 {deadlines.map(({ obligation, deadline }) => (
                                     <tr
                                         key={obligation}
-                                        className="border-t border-white/15"
+                                        className="border-t border-gray-200"
                                     >
                                         <th
                                             scope="row"
-                                            className="break-words px-3 py-4 align-top font-normal leading-6 text-[var(--footer-text)] sm:px-5"
+                                            className="break-words px-3 py-4 align-top font-normal leading-6 sm:px-5"
                                         >
                                             {obligation}
                                         </th>
