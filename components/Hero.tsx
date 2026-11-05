@@ -46,7 +46,7 @@ export default function Hero() {
 
                     <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                         <Link
-                            href={headerCta.href}
+                            href="/pricing"
                             className="inline-flex items-center justify-center rounded-[6px] bg-white px-7 py-4 text-sm font-semibold uppercase tracking-widest text-[var(--ink)] transition-colors hover:bg-[var(--accent-soft)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                         >
                             Estimate my monthly fee
