@@ -21,12 +21,15 @@ export default function ServicesSection() {
                     </h2>
                 </div>
 
-                <div className="mt-12 overflow-hidden rounded-2xl border border-gray-300 bg-gray-300">
-                    <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
-                        {services.map((service) => (
+                <div className="mt-12 overflow-hidden rounded-2xl bg-[var(--paper)]">
+                    <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-4">
+                        {services.map((service, index) => (
                             <article
                                 key={service.slug}
-                                className="bg-white p-6 transition-colors duration-200 hover:bg-[#e2f1f3] lg:p-7"
+                                className={`border border-gray-200 bg-white p-6 transition-colors duration-200 hover:bg-[#e2f1f3] lg:p-7 ${services.length % 4 === 2 && index === services.length - 2
+                                    ? "lg:col-start-2"
+                                    : ""
+                                    }`}
                             >
                                 <p className="text-xs font-medium uppercase tracking-widest text-gray-600">
                                     {service.title}
