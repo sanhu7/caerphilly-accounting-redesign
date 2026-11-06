@@ -19,12 +19,36 @@ export const services: Service[] = [
     title: "Payroll",
     headline: "Reliable, RTI-Compliant Payroll",
     description: "PAYE setup, regular pay runs and RTI reporting, handled every month.",
+    detail: {
+      introduction: "Your employees expect to be paid accurately and on time, while HMRC expects payroll information to be reported correctly. Our managed payroll service removes the routine administration and gives you confidence that the process is being handled professionally.",
+      benefits: [
+        "PAYE scheme setup and administration",
+        "Regular payroll processing",
+        "RTI-compliant reporting",
+        "Clear information on payments due",
+        "Reduced payroll administration and compliance risk",
+      ],
+      longerDescription: "We manage payroll using HMRC-recognised software and provide a service tailored to the size of your workforce. From setting up your PAYE scheme to processing regular pay and communicating amounts due to staff and HMRC, we take care of the detail. Real Time Information (RTI) requirements are incorporated into the process, helping you maintain consistent payroll records and reduce administrative pressure.",
+      cta: "Let us manage your payroll while you focus on your people and your business.",
+    },
   },
   {
     slug: "corporation-tax",
     title: "Corporation Tax",
     headline: "Strategic Corporation Tax Planning",
     description: "CT600 returns with fully tagged iXBRL computations, capital allowances and R&D review.",
+    detail: {
+      introduction: "Effective corporation tax planning is about more than completing a return. It means understanding your company's financial position, identifying relevant reliefs and preparing accurate computations that support compliant tax planning.",
+      benefits: [
+        "Corporation tax return preparation",
+        "Fully tagged iXBRL computations",
+        "Capital allowance calculations",
+        "Chargeable gains calculations",
+        "Review of relevant R&D tax reliefs",
+      ],
+      longerDescription: "We prepare corporation tax computations and fully tagged iXBRL submissions, together with the supplementary forms required for your circumstances. Our work can include the calculation of capital allowances, chargeable gains and eligible Research & Development tax reliefs. We then present the completed return and supporting figures for your review before submission, helping you understand your company's tax position.",
+      cta: "Plan your company's tax position with professional support.",
+    },
   },
   {
     slug: "digital-solutions",
