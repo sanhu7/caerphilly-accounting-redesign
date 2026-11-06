@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import PlaceholderPage from "@/components/ui/PlaceholderPage";
+import ServiceDetailPage from "@/components/ServiceDetailPage";
 import { services } from "@/data/services";
 
 export function generateStaticParams() {
@@ -14,6 +15,10 @@ export default async function ServicePage({
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
+
+  if (slug === "payroll" || slug === "corporation-tax") {
+    return <ServiceDetailPage service={service} />;
+  }
 
   return <PlaceholderPage title={service.title} />;
 }
