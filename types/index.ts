@@ -10,4 +10,10 @@ export type Service = {
   title: string;
   headline:string;
   description: string;
+  detail?: {
+    introduction: string;
+    benefits: string[];
+    longerDescription: string;
+    cta: string;
+  };
 };
