@@ -9,11 +9,26 @@ export const services: Service[] = [
     description: "Up-to-date records, reconciliations and organised receipts, so your numbers are always ready.",
   },
   {
-    slug: "vat-returns",
-    title: "VAT Returns",
-    headline: "Maximising Efficiency on VAT Returns",
-    description: "Registration, checked and submitted returns, and practical help with VAT queries.",
+  slug: "vat-returns",
+  title: "VAT Returns",
+  headline: "Maximising Efficiency on VAT Returns",
+  description:
+    "Registration, checked and submitted returns, and practical help with VAT queries.",
+  detail: {
+    introduction:
+      "VAT compliance can become time-consuming and costly when records are incomplete or returns are prepared without sufficient checks. We provide a thorough VAT service designed to make the process straightforward and controlled.",
+    benefits: [
+      "VAT registration and administration",
+      "Accurate preparation and submission",
+      "Pre-submission bookkeeping checks",
+      "Identification of potential VAT recoveries",
+      "Practical support with VAT queries",
+    ],
+    longerDescription:
+      "From VAT registration through to preparing and submitting your returns, we manage the process with care. Before submission, we review your bookkeeping for discrepancies and investigate unusual figures so potential errors can be addressed early. Where your accounting records indicate that VAT may be recoverable, we identify relevant amounts and help protect your cash flow.",
+    cta: "Speak to us about making your VAT returns simpler and more efficient.",
   },
+},
   {
     slug: "payroll",
     title: "Payroll",
