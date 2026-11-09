@@ -50,18 +50,48 @@ export const services: Service[] = [
       cta: "Plan your company's tax position with professional support.",
     },
   },
-  {
-    slug: "digital-solutions",
-    title: "Digital Solutions",
-    headline: "Real-Time Commercial Insights",
-    description: "Cloud accounting setup and support, so you can see your numbers all year round.",
+ {
+  slug: "digital-solutions",
+  title: "Digital Solutions",
+  headline: "Real-Time Commercial Insights",
+  description:
+    "Cloud accounting setup and support, so you can see your numbers all year round.",
+  detail: {
+    introduction:
+      "Cloud accounting can turn your financial information into a practical management tool. Instead of waiting for year-end figures, you can have greater visibility over income, expenditure, cash flow and profitability throughout the year.",
+    benefits: [
+      "Cloud accounting setup and support",
+      "Accessible financial information",
+      "Digital invoicing and expense management",
+      "Improved cash-flow visibility",
+      "More informed, timely decision-making",
+    ],
+    longerDescription:
+      "We help businesses implement and use suitable digital accounting solutions, providing ongoing support as your needs develop. With the right system in place, you can manage invoices, monitor expenses and access current financial information from wherever you work. We focus on making technology useful rather than complicated, helping you use reliable financial data to make faster commercial decisions.",
+    cta: "Move your accounts into the cloud and make your numbers work harder.",
   },
+},
   {
-    slug: "making-tax-digital",
-    title: "Making Tax Digital",
-    headline: "Future-Proofing Your HMRC Compliance",
-    description: "MTD readiness, software setup and quarterly submissions managed for you.",
+  slug: "making-tax-digital",
+  title: "Making Tax Digital",
+  headline: "Future-Proofing Your HMRC Compliance",
+  description:
+    "MTD readiness, software setup and quarterly submissions managed for you.",
+  detail: {
+    introduction:
+      "Making Tax Digital continues to change how businesses and individuals keep records and report information to HMRC. We help you understand the requirements that apply to you and put the right digital processes in place.",
+    benefits: [
+      "MTD readiness and practical guidance",
+      "Digital record-keeping support",
+      "Software transition and setup",
+      "Quarterly submission management",
+      "Ongoing compliance support",
+    ],
+    longerDescription:
+      "We can help transition your records to suitable digital accounting software and establish processes for maintaining accurate records throughout the year. Where quarterly MTD submissions apply, we can manage the reporting timetable and help ensure information is submitted correctly and on time. The result is a more structured approach to digital compliance and fewer last-minute tax administration pressures.",
+    cta: "Get your accounting systems ready for the next stage of digital tax reporting.",
   },
+},
   {
     slug: "capital-gains-tax",
     title: "Capital Gains Tax",
