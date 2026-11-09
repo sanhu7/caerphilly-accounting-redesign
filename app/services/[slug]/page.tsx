@@ -16,7 +16,10 @@ export default async function ServicePage({
   const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
 
-  if (slug === "payroll" || slug === "corporation-tax") {
+  if (
+    slug === "payroll" ||
+    slug === "corporation-tax" ||
+    slug === "bookkeeping") {
     return <ServiceDetailPage service={service} />;
   }
 
