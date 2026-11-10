@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Service } from "@/types";
 import { services } from "@/data/services";
+import DigitalSolutionsSections from "@/components/DigitalSolutionsSections";
 
 export default function ServiceDetailPage({ service }: { service: Service }) {
   if (service.detail) {
@@ -46,6 +47,10 @@ export default function ServiceDetailPage({ service }: { service: Service }) {
               {service.detail.introduction}
             </p>
           </header>
+
+          {service.slug === "digital-solutions" && (
+            <DigitalSolutionsSections />
+          )}
 
           <section aria-labelledby="service-benefits-heading" className="mt-10 sm:mt-14">
             <div className="rounded-2xl border border-[var(--line)] bg-white p-5 shadow-sm sm:p-8 lg:p-10">
