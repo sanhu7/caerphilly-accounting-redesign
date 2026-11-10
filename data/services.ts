@@ -3,11 +3,26 @@ import type { Service } from "@/types";
 // One entry per service. The slug becomes the URL: /services/<slug>.
 export const services: Service[] = [
   {
-    slug: "bookkeeping",
-    title: "Bookkeeping",
-    headline: "Accurate Bookkeeping for Commercial Growth",
-    description: "Up-to-date records, reconciliations and organised receipts, so your numbers are always ready.",
+  slug: "bookkeeping",
+  title: "Bookkeeping",
+  headline: "Accurate Bookkeeping for Commercial Growth",
+  description:
+    "Up-to-date records, reconciliations and organised receipts, so your numbers are always ready.",
+  detail: {
+    introduction:
+      "Reliable financial records give you a clear view of how your business is performing. We take care of the essential day-to-day bookkeeping so your figures are accurate, current and ready to support confident commercial decisions.",
+    benefits: [
+      "Accurate, up-to-date financial records",
+      "Bank and account reconciliations",
+      "Organised invoices and receipts",
+      "Less administration for your team",
+      "Clearer information for commercial decisions",
+    ],
+    longerDescription:
+      "Our bookkeeping service covers the recording and organisation of your transactions, receipt management, invoice processing and bank reconciliations. We keep your records structured and up to date, giving you a dependable financial foundation throughout the year. By outsourcing the administration to us, you can spend less time on paperwork and more time developing your business.",
+    cta: "Talk to us about taking bookkeeping off your to-do list.",
   },
+},
   {
   slug: "vat-returns",
   title: "VAT Returns",
