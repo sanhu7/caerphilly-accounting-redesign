@@ -19,7 +19,11 @@ export default async function ServicePage({
   if (
     slug === "payroll" ||
     slug === "corporation-tax" ||
-    slug === "vat-returns") {
+    slug === "vat-returns" ||
+    slug === "making-tax-digital" ||
+    slug === "digital-solutions"
+
+  ) {
     return <ServiceDetailPage service={service} />;
   }
 
