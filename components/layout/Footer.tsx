@@ -97,6 +97,17 @@ export default function Footer() {
                             info@caerphillyaccounting.co.uk
                         </a>
 
+                        <a
+                            href="https://www.linkedin.com/company/jjbs-bookkeeping-solutions-ltd/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-3 inline-flex items-center gap-2 rounded-sm hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                        >
+                            LinkedIn
+                            <span aria-hidden="true">↗</span>
+                            <span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+
                         <p className="mt-4">
                             Monday to Friday, 09:00–17:00
                         </p>
