@@ -1,7 +1,19 @@
 const registrations = [
-  "HMRC-registered agent",
-  "Companies House ACSP (AP021767)",
-  "AML supervised by HMRC (XFML00000110710)",
+  {
+    title: "HMRC-registered agent",
+    description:
+      "We're authorised to deal with HMRC on your behalf for Self Assessment, VAT, PAYE and Corporation Tax.",
+  },
+  {
+    title: "Companies House ACSP",
+    description:
+      "As an Authorised Corporate Service Provider (ACSP number AP021767) we can verify the identity of company directors and people with significant control.",
+  },
+  {
+    title: "AML supervised by HMRC",
+    description:
+      "Our anti-money laundering compliance is supervised by HM Revenue & Customs, registration number XFML00000110710.",
+  },
 ];
 
 export default function RegisteredRegulatedSection() {
@@ -11,23 +23,30 @@ export default function RegisteredRegulatedSection() {
       aria-labelledby="registered-regulated-heading"
     >
       <div className="mx-auto max-w-6xl">
-        <p className="text-sm font-semibold tracking-wide text-[var(--accent)]">
+        <p className="text-base font-medium text-[var(--ink)]">
           Registered &amp; regulated
         </p>
+
         <h2
           id="registered-regulated-heading"
-          className="mt-3 max-w-3xl text-3xl font-light leading-tight tracking-[-0.02em] text-[var(--ink)] sm:text-4xl"
+          className="mt-5 max-w-[40rem] text-[32px] font-light leading-[1.2] tracking-[-0.02em] text-[var(--ink)] sm:text-[40px] lg:text-[44px]"
         >
           Authorised to act for you with HMRC and Companies House.
         </h2>
 
-        <div className="mt-10 grid min-w-0 grid-cols-1 gap-5 md:grid-cols-3">
-          {registrations.map((registration) => (
+        <div className="mt-10 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3 lg:mt-12">
+          {registrations.map(({ title, description }) => (
             <article
-              key={registration}
-              className="min-w-0 rounded-[10px] border border-[var(--line)] bg-[var(--surface)] p-6 text-[var(--ink)]"
+              key={title}
+              className="min-w-0 rounded-[14px] border border-[var(--line)] bg-[var(--surface)] p-6 text-[var(--ink)]"
             >
-              <h3 className="heading-lg break-words">{registration}</h3>
+              <h3 className="text-lg font-medium leading-snug">
+                {title}
+              </h3>
+
+              <p className="mt-5 text-base leading-[1.75] text-[var(--ink)] opacity-80">
+                {description}
+              </p>
             </article>
           ))}
         </div>
