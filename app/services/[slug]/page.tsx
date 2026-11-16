@@ -22,7 +22,9 @@ export default async function ServicePage({
     slug === "bookkeeping" ||
     slug === "vat-returns" ||
     slug === "making-tax-digital" ||
-    slug === "digital-solutions"
+    slug === "digital-solutions" ||
+    slug === "capital-gains-tax" ||
+    slug === "landlord-self-assessment"
 
   ) {
     return <ServiceDetailPage service={service} />;
