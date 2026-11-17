@@ -1,0 +1,426 @@
+diff --git a/.env.example b/.env.example
+new file mode 100644
+index 0000000..ba951bf
+--- /dev/null
++++ b/.env.example
+@@ -0,0 +1,6 @@
++# Zoom Server-to-Server OAuth app (marketplace.zoom.us). Scopes: meeting:write:meeting:admin, meeting:read:list_meetings:admin
++ZOOM_ACCOUNT_ID=
++ZOOM_CLIENT_ID=
++ZOOM_CLIENT_SECRET=
++# Email of the Zoom user who hosts the calls
++ZOOM_HOST_EMAIL=
+diff --git a/.gitignore b/.gitignore
+index 5ef6a52..7b8da95 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -32,6 +32,7 @@ yarn-error.log*
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.example
+ 
+ # vercel
+ .vercel
+diff --git a/app/api/booking/route.ts b/app/api/booking/route.ts
+new file mode 100644
+index 0000000..c34dafa
+--- /dev/null
++++ b/app/api/booking/route.ts
+@@ -0,0 +1,40 @@
++import { NextResponse } from "next/server";
++import { freeSlots, SLOT_MINUTES } from "@/lib/booking";
++import { createMeeting } from "@/lib/zoom";
++
++export async function POST(request: Request) {
++  let body: { date?: string; time?: string; name?: string; email?: string };
++  try {
++    body = await request.json();
++  } catch {
++    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
++  }
++  const date = body.date ?? "";
++  const time = body.time ?? "";
++  const name = (body.name ?? "").trim().slice(0, 100);
++  const email = (body.email ?? "").trim().slice(0, 200);
++
++  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
++    return NextResponse.json({ error: "Please enter a name and a valid email." }, { status: 400 });
++  }
++  try {
++    // Re-check at booking time so two people cannot take the same slot.
++    if (!(await freeSlots(date)).includes(time)) {
++      return NextResponse.json(
++        { error: "Sorry, that time was just taken. Please pick another." },
++        { status: 409 }
++      );
++    }
++    const meeting = await createMeeting({
++      topic: `Caerphilly Accounting call with ${name}`,
++      agenda: `Booked via website. Contact: ${name} <${email}>`,
++      localStart: `${date}T${time}:00`,
++      duration: SLOT_MINUTES,
++      inviteeEmail: email,
++    });
++    return NextResponse.json({ joinUrl: meeting.join_url });
++  } catch (e) {
++    console.error(e);
++    return NextResponse.json({ error: "Booking failed. Please call us instead." }, { status: 502 });
++  }
++}
+diff --git a/app/api/booking/slots/route.ts b/app/api/booking/slots/route.ts
+new file mode 100644
+index 0000000..68cad3e
+--- /dev/null
++++ b/app/api/booking/slots/route.ts
+@@ -0,0 +1,12 @@
++import { NextResponse } from "next/server";
++import { freeSlots } from "@/lib/booking";
++
++export async function GET(request: Request) {
++  const date = new URL(request.url).searchParams.get("date") ?? "";
++  try {
++    return NextResponse.json({ slots: await freeSlots(date) });
++  } catch (e) {
++    console.error(e);
++    return NextResponse.json({ error: "Could not load availability." }, { status: 502 });
++  }
++}
+diff --git a/app/contact/page.tsx b/app/contact/page.tsx
+index c6840c3..238213f 100644
+--- a/app/contact/page.tsx
++++ b/app/contact/page.tsx
+@@ -2,6 +2,7 @@
+ 
+ import { services } from "@/data/services";
+ import Link from "next/link";
++import BookingScheduler from "@/components/BookingScheduler";
+ import { useState, type FormEvent } from "react";
+ import { useSearchParams } from "next/navigation";
+ 
+@@ -325,9 +326,7 @@ export default function ContactPage() {
+                 Book a call
+               </h2>
+ 
+-              <p className="mt-3 text-base text-gray-600">
+-                Online booking link coming soon.
+-              </p>
++              <BookingScheduler />
+             </div>
+           </section>
+         </div>
+diff --git a/components/BookingScheduler.tsx b/components/BookingScheduler.tsx
+new file mode 100644
+index 0000000..5898ade
+--- /dev/null
++++ b/components/BookingScheduler.tsx
+@@ -0,0 +1,151 @@
++"use client";
++
++import { useEffect, useMemo, useState, type FormEvent } from "react";
++
++const focus =
++  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]";
++
++function nextWeekdays(count: number): string[] {
++  const out: string[] = [];
++  const d = new Date();
++  while (out.length < count) {
++    const day = d.getDay();
++    if (day !== 0 && day !== 6) {
++      out.push(
++        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
++      );
++    }
++    d.setDate(d.getDate() + 1);
++  }
++  return out;
++}
++
++function label(date: string) {
++  return new Date(`${date}T12:00:00`).toLocaleDateString("en-GB", {
++    weekday: "short", day: "numeric", month: "short",
++  });
++}
++
++export default function BookingScheduler() {
++  const days = useMemo(() => nextWeekdays(10), []);
++  const [date, setDate] = useState(days[0]);
++  const [slots, setSlots] = useState<string[] | null>(null);
++  const [error, setError] = useState("");
++  const [time, setTime] = useState("");
++  const [busy, setBusy] = useState(false);
++  const [joinUrl, setJoinUrl] = useState("");
++
++  useEffect(() => {
++    let cancelled = false;
++    fetch(`/api/booking/slots?date=${date}`)
++      .then((r) => r.json())
++      .then((d) => {
++        if (cancelled) return;
++        if (d.error) setError(d.error);
++        setSlots(d.slots ?? []);
++      })
++      .catch(() => {
++        if (!cancelled) {
++          setError("Could not load availability.");
++          setSlots([]);
++        }
++      });
++    return () => { cancelled = true; };
++  }, [date]);
++
++  function pickDate(d: string) {
++    setDate(d);
++    setSlots(null);
++    setTime("");
++    setError("");
++  }
++
++  async function submit(e: FormEvent<HTMLFormElement>) {
++    e.preventDefault();
++    const f = new FormData(e.currentTarget);
++    setBusy(true);
++    setError("");
++    try {
++      const res = await fetch("/api/booking", {
++        method: "POST",
++        headers: { "Content-Type": "application/json" },
++        body: JSON.stringify({ date, time, name: f.get("name"), email: f.get("email") }),
++      });
++      const d = await res.json();
++      if (!res.ok) throw new Error(d.error);
++      setJoinUrl(d.joinUrl);
++    } catch (err) {
++      setError(err instanceof Error ? err.message : "Booking failed.");
++    } finally {
++      setBusy(false);
++    }
++  }
++
++  if (joinUrl) {
++    return (
++      <div role="status" className="mt-3 rounded-2xl border border-gray-300 bg-white p-6">
++        <p className="font-semibold text-[var(--ink)]">
++          Booked: {label(date)} at {time} (UK time)
++        </p>
++        <p className="mt-2 text-sm text-gray-600">A Zoom invite is on its way to your email.</p>
++        <a href={joinUrl} target="_blank" rel="noopener noreferrer"
++          className={`mt-4 inline-block text-[#188795] underline underline-offset-4 ${focus}`}>
++          Zoom link<span className="sr-only"> (opens in a new tab)</span>
++        </a>
++      </div>
++    );
++  }
++
++  return (
++    <div className="mt-3 rounded-2xl border border-gray-300 bg-white p-6">
++      <p className="text-sm text-gray-600">30 minute Zoom call. Times shown in UK time.</p>
++
++      <div role="group" aria-label="Choose a day" className="mt-4 flex flex-wrap gap-2">
++        {days.map((d) => (
++          <button key={d} type="button" aria-pressed={d === date} onClick={() => pickDate(d)}
++            className={`rounded border px-3 py-2 text-sm ${focus} ${
++              d === date ? "border-[var(--ink)] bg-[var(--ink)] text-white" : "border-gray-300 text-[var(--ink)]"
++            }`}>
++            {label(d)}
++          </button>
++        ))}
++      </div>
++
++      <div role="group" aria-label="Choose a time" className="mt-4 flex flex-wrap gap-2">
++        {slots === null && <p className="text-sm text-gray-600">Loading times...</p>}
++        {slots?.length === 0 && !error && (
++          <p className="text-sm text-gray-600">No times left on this day. Try another.</p>
++        )}
++        {slots?.map((t) => (
++          <button key={t} type="button" aria-pressed={t === time} onClick={() => setTime(t)}
++            className={`rounded border px-3 py-2 text-sm ${focus} ${
++              t === time ? "border-[#188795] bg-[var(--accent-soft)] font-semibold text-[var(--ink)]" : "border-gray-300 text-[var(--ink)]"
++            }`}>
++            {t}
++          </button>
++        ))}
++      </div>
++
++      {time && (
++        <form onSubmit={submit} className="mt-6 grid gap-4 sm:grid-cols-2">
++          <div>
++            <label htmlFor="book-name" className="block font-semibold text-[var(--ink)]">Name</label>
++            <input id="book-name" name="name" required autoComplete="name"
++              className={`mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] ${focus}`} />
++          </div>
++          <div>
++            <label htmlFor="book-email" className="block font-semibold text-[var(--ink)]">Email</label>
++            <input id="book-email" name="email" type="email" required autoComplete="email"
++              className={`mt-2 w-full rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] ${focus}`} />
++          </div>
++          <button type="submit" disabled={busy}
++            className={`rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white disabled:opacity-60 sm:col-span-2 sm:justify-self-start ${focus}`}>
++            {busy ? "Booking..." : `Book ${label(date)} at ${time}`}
++          </button>
++        </form>
++      )}
++
++      <p role="alert" className="mt-4 text-sm text-red-700">{error}</p>
++    </div>
++  );
++}
+diff --git a/lib/booking.ts b/lib/booking.ts
+new file mode 100644
+index 0000000..692dda8
+--- /dev/null
++++ b/lib/booking.ts
+@@ -0,0 +1,69 @@
++import { listUpcomingMeetings } from "@/lib/zoom";
++
++export const TZ = "Europe/London";
++export const SLOT_MINUTES = 30;
++export const OPEN_HOUR = 9;
++export const CLOSE_HOUR = 17;
++export const MIN_NOTICE_MS = 2 * 60 * 60 * 1000;
++export const MAX_DAYS_AHEAD = 30;
++
++function tzOffsetMs(utcMs: number): number {
++  const p = Object.fromEntries(
++    new Intl.DateTimeFormat("en-GB", {
++      timeZone: TZ, hourCycle: "h23",
++      year: "numeric", month: "2-digit", day: "2-digit",
++      hour: "2-digit", minute: "2-digit", second: "2-digit",
++    }).formatToParts(new Date(utcMs)).map((x) => [x.type, x.value])
++  );
++  const asUtc = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
++  return asUtc - Math.floor(utcMs / 1000) * 1000;
++}
++
++/** Convert a London wall-clock time to a UTC timestamp. */
++export function londonToUtc(date: string, hh: number, mm: number): number {
++  const [y, m, d] = date.split("-").map(Number);
++  const guess = Date.UTC(y, m - 1, d, hh, mm);
++  let t = guess - tzOffsetMs(guess);
++  t = guess - tzOffsetMs(t);
++  return t;
++}
++
++export function isValidDate(date: string): boolean {
++  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
++  const [y, m, d] = date.split("-").map(Number);
++  const dt = new Date(Date.UTC(y, m - 1, d));
++  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
++}
++
++function isWeekday(date: string): boolean {
++  const day = new Date(`${date}T12:00:00Z`).getUTCDay();
++  return day >= 1 && day <= 5;
++}
++
++export function allTimes(): string[] {
++  const out: string[] = [];
++  for (let m = OPEN_HOUR * 60; m + SLOT_MINUTES <= CLOSE_HOUR * 60; m += SLOT_MINUTES) {
++    out.push(`${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`);
++  }
++  return out;
++}
++
++/** Returns the times on `date` that are still free. */
++export async function freeSlots(date: string): Promise<string[]> {
++  if (!isValidDate(date) || !isWeekday(date)) return [];
++  const now = Date.now();
++  if (londonToUtc(date, 0, 0) > now + MAX_DAYS_AHEAD * 86_400_000) return [];
++
++  const busy = (await listUpcomingMeetings()).map((m) => {
++    const s = Date.parse(m.start_time);
++    return [s, s + m.duration * 60_000] as const;
++  });
++
++  return allTimes().filter((t) => {
++    const [hh, mm] = t.split(":").map(Number);
++    const start = londonToUtc(date, hh, mm);
++    const end = start + SLOT_MINUTES * 60_000;
++    if (start < now + MIN_NOTICE_MS) return false;
++    return !busy.some(([bs, be]) => start < be && end > bs);
++  });
++}
+diff --git a/lib/zoom.ts b/lib/zoom.ts
+new file mode 100644
+index 0000000..5c9d5df
+--- /dev/null
++++ b/lib/zoom.ts
+@@ -0,0 +1,77 @@
++// Zoom Server-to-Server OAuth client. Server only: never import from client components.
++
++type Token = { value: string; expiresAt: number };
++let cached: Token | null = null;
++
++function env(name: string): string {
++  const v = process.env[name];
++  if (!v) throw new Error(`Missing environment variable ${name}`);
++  return v;
++}
++
++async function getToken(): Promise<string> {
++  if (cached && cached.expiresAt > Date.now() + 60_000) return cached.value;
++  const basic = Buffer.from(
++    `${env("ZOOM_CLIENT_ID")}:${env("ZOOM_CLIENT_SECRET")}`
++  ).toString("base64");
++  const res = await fetch(
++    `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${encodeURIComponent(
++      env("ZOOM_ACCOUNT_ID")
++    )}`,
++    { method: "POST", headers: { Authorization: `Basic ${basic}` }, cache: "no-store" }
++  );
++  if (!res.ok) throw new Error(`Zoom auth failed (${res.status})`);
++  const data = await res.json();
++  cached = { value: data.access_token, expiresAt: Date.now() + data.expires_in * 1000 };
++  return cached.value;
++}
++
++async function zoom<T>(path: string, init?: RequestInit): Promise<T> {
++  const token = await getToken();
++  const res = await fetch(`https://api.zoom.us/v2${path}`, {
++    ...init,
++    headers: {
++      Authorization: `Bearer ${token}`,
++      "Content-Type": "application/json",
++      ...init?.headers,
++    },
++    cache: "no-store",
++  });
++  if (!res.ok) throw new Error(`Zoom API ${path} failed (${res.status})`);
++  return (await res.json()) as T;
++}
++
++export type ZoomMeeting = { start_time: string; duration: number };
++
++export async function listUpcomingMeetings(): Promise<ZoomMeeting[]> {
++  const host = env("ZOOM_HOST_EMAIL");
++  const data = await zoom<{ meetings?: ZoomMeeting[] }>(
++    `/users/${encodeURIComponent(host)}/meetings?type=upcoming&page_size=300`
++  );
++  return data.meetings ?? [];
++}
++
++export async function createMeeting(opts: {
++  topic: string;
++  agenda: string;
++  localStart: string; // yyyy-MM-ddTHH:mm:ss in Europe/London
++  duration: number;
++  inviteeEmail: string;
++}): Promise<{ join_url: string; id: number }> {
++  const host = env("ZOOM_HOST_EMAIL");
++  return zoom(`/users/${encodeURIComponent(host)}/meetings`, {
++    method: "POST",
++    body: JSON.stringify({
++      topic: opts.topic,
++      type: 2,
++      start_time: opts.localStart,
++      timezone: "Europe/London",
++      duration: opts.duration,
++      agenda: opts.agenda,
++      settings: {
++        waiting_room: true,
++        meeting_invitees: [{ email: opts.inviteeEmail }],
++      },
++    }),
++  });
++}

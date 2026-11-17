@@ -2,6 +2,7 @@
 
 import { services } from "@/data/services";
 import Link from "next/link";
+import BookingScheduler from "@/components/BookingScheduler";
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -325,9 +326,7 @@ export default function ContactPage() {
                 Book a call
               </h2>
 
-              <p className="mt-3 text-base text-gray-600">
-                Online booking link coming soon.
-              </p>
+              <BookingScheduler />
             </div>
           </section>
         </div>
