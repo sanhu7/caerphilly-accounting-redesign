@@ -2,6 +2,7 @@
 
 import { services } from "@/data/services";
 import Link from "next/link";
+import BookingScheduler from "@/components/BookingScheduler";
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -254,27 +255,17 @@ export default function ContactPage() {
 
           </form>
 
-          <section aria-label="Contact information" className="space-y-8">
-            <div>
-              <h2 className="text-lg font-semibold text-[var(--ink)]">
-                Book a call
-              </h2>
+          
+<section aria-label="Book a call" className="space-y-8">
+  <div>
+    <h2 className="text-lg font-semibold text-[var(--ink)]">
+      Book a call
+    </h2>
 
-              <p className="mt-3 text-base text-gray-600">
-                Online booking link coming soon.
-              </p>
-            </div>
+    <BookingScheduler />
+  </div>
+</section>
 
-            <div>
-              <h2 className="text-lg font-semibold text-[var(--ink)]">
-                Opening hours
-              </h2>
-
-              <p className="mt-3 text-base leading-relaxed text-[var(--ink)]">
-                Monday to Friday, 9:00–17:00
-              </p>
-            </div>
-          </section>
         </div>
       </div>
     </main>
