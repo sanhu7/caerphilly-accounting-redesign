@@ -127,12 +127,36 @@ export const services: Service[] = [
     title: "Capital Gains Tax",
     headline: "Protecting Your Asset Disposals",
     description: "CGT calculated before you sell, with reliefs reviewed and reporting handled.",
+    detail: {
+      introduction: "Selling a business asset, property or investment can create a significant tax liability. Understanding the potential Capital Gains Tax position before a transaction takes place gives you the opportunity to plan properly and consider the reliefs available.",
+      benefits: [
+        "Pre-disposal CGT calculations",
+        "Review of applicable reliefs and exemptions",
+        "Tax planning before transactions",
+        "Clear explanation of potential liabilities",
+        "Support with reporting and compliance",
+      ],
+      longerDescription: "We calculate potential Capital Gains Tax liabilities before disposal and review the relevant facts surrounding the transaction. Where statutory reliefs or exemptions may apply, we consider these as part of the calculation and explain their effect clearly. Our role is to help you understand the tax consequences of a proposed disposal and organise the transaction’s reporting requirements efficiently.",
+      cta: "Before you sell, understand the tax position.",
+    },
   },
   {
     slug: "landlord-self-assessment",
     title: "Landlord Self-Assessment",
     headline: "Optimising Your Property Yields",
     description: "Property income calculations and Self-Assessment returns for landlords.",
+    detail: {
+      introduction: "Property income can involve specific tax rules, allowable expenses and finance-related considerations. Accurate records and careful preparation can make the difference between a straightforward Self-Assessment return and an unnecessary tax headache.",
+      benefits: [
+        "Property income calculations",
+        "Landlord Self-Assessment returns",
+        "Review of allowable expenses",
+        "Finance-related tax considerations",
+        "Clear calculation of your tax liability",
+      ],
+      longerDescription: "We prepare property income calculations and Self-Assessment returns for landlords, ensuring relevant rental income and allowable expenses are properly recorded. We review costs such as qualifying maintenance expenditure and applicable finance-related reliefs, helping you understand how they affect your taxable position. Our service combines accurate reporting with practical guidance, keeping your property tax affairs organised and compliant.",
+      cta: "Keep your property tax affairs accurate, compliant and efficiently managed.",
+    },
   },
   {
     slug: "identity-verification",

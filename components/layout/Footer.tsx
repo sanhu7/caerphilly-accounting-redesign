@@ -58,14 +58,14 @@ export default function Footer() {
                         </ul>
                     </nav>
 
-                    <nav aria-label="Footer company navigation">
+                    <nav aria-label="Footer company navigation" className="min-w-0">
                         <h2 className="font-semibold text-white">Company</h2>
                         <ul className="mt-3 space-y-2">
-                            <li><Link href="/pricing">Pricing &amp; fee estimator</Link></li>
-                            <li><Link href="/about">About</Link></li>
-                            <li><Link href="/contact">Contact</Link></li>
-                            <li><Link href="/privacy">Privacy policy</Link></li>
-                            <li><Link href="/terms">Terms of website use</Link></li>
+                            <li><Link href="/pricing" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Pricing &amp; fee estimator</Link></li>
+                            <li><Link href="/about" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">About</Link></li>
+                            <li><Link href="/contact" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Contact</Link></li>
+                            <li><Link href="/privacy" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Privacy policy</Link></li>
+                            <li><Link href="/terms" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Terms of website use</Link></li>
                         </ul>
                     </nav>
 
