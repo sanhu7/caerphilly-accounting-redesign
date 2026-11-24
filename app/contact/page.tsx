@@ -2,11 +2,10 @@
 
 import { services } from "@/data/services";
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { Suspense, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
-
-export default function ContactPage() {
+function ContactContent() {
   const searchParams = useSearchParams();
   const isQuoteRequest = searchParams.get("quote") === "true";
   const businessType = searchParams.get("businessType");
@@ -23,6 +22,7 @@ export default function ContactPage() {
           : null;
 
   const [formStatus, setFormStatus] = useState("");
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -54,18 +54,21 @@ export default function ContactPage() {
             {isQuoteRequest && businessTypeLabel && (
               <p className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--ink)]">
                 Business type: <strong>{businessTypeLabel}</strong>
+
                 {monthlyTotal && (
                   <>
                     <br />
-                    Estimated monthly fee: <strong>£{monthlyTotal} per month</strong>
+                    Estimated monthly fee:{" "}
+                    <strong>£{monthlyTotal} per month</strong>
                   </>
                 )}
-                <>
-                  <br />
-                  VAT registered: <strong>{isVatRegistered ? "Yes" : "No"}</strong>
-                </>
+
+                <br />
+                VAT registered:{" "}
+                <strong>{isVatRegistered ? "Yes" : "No"}</strong>
               </p>
             )}
+
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <label
@@ -121,9 +124,6 @@ export default function ContactPage() {
                   />
                 </div>
               )}
-
-
-
             </div>
 
             {isQuoteRequest && (
@@ -207,6 +207,7 @@ export default function ContactPage() {
                 className="mt-2 w-full resize-y rounded-xl border border-gray-300 bg-[var(--paper)] px-4 py-3 text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
               />
             </div>
+
             <div className="mt-6 flex items-start gap-3">
               <input
                 id="contact-consent"
@@ -218,8 +219,8 @@ export default function ContactPage() {
 
               <div className="text-sm leading-relaxed text-gray-600">
                 <label htmlFor="contact-consent">
-                  I agree to Caerphilly Accounting using these details to respond to my
-                  enquiry, as described in the{" "}
+                  I agree to Caerphilly Accounting using these details to respond
+                  to my enquiry, as described in the{" "}
                 </label>
 
                 <Link
@@ -251,7 +252,6 @@ export default function ContactPage() {
             >
               {formStatus}
             </p>
-
           </form>
 
           <section aria-label="Contact information" className="space-y-8">
@@ -278,5 +278,19 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="px-6 py-12" role="status">
+          Loading contact form…
+        </div>
+      }
+    >
+      <ContactContent />
+    </Suspense>
   );
 }
