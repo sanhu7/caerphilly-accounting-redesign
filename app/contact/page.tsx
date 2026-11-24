@@ -233,16 +233,17 @@ export default function ContactPage() {
             </div>
 
             <p className="mt-6 text-sm leading-relaxed text-gray-600">
-              Online sending is not available yet. Please use the phone or email
-              options to contact us.
+              Clicking Send message opens your email app. Form details are
+              not included automatically. You will need to write and send
+              your message there.
             </p>
 
-            <button
-              type="submit"
-              className="mt-4 rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
+            <a
+              href="mailto:info@caerphillyaccounting.co.uk"
+              className="mt-4 inline-block rounded bg-[var(--ink)] px-7 py-4 text-sm font-semibold uppercase tracking-widest text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c79529]"
             >
               Send message
-            </button>
+            </a>
 
             <p
               role="status"
